@@ -1,0 +1,25 @@
+from AnswerChecker import AnswerChecker
+from Question import Question
+
+
+class Assignment:
+
+
+    def run(self):
+        question = Question()
+        questionText = question.getQuestion()
+        questionAnswers = question.getAnswerList()
+        userAnswer1 = input("svar1")
+        userAnswer2 = input("svar2")
+        userAnswer3 = input("svar3")
+        userAnswer4 = input("svar4")
+        userFinalAnswer = [bool(userAnswer1), bool(userAnswer2),bool(userAnswer3),bool(userAnswer4)]
+        answerChecker = AnswerChecker()
+        answer = answerChecker.checkAnswer(questionAnswers, userFinalAnswer)
+        print(answer)
+        return None
+
+
+
+assignment = Assignment()
+assignment.run()
