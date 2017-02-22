@@ -17,10 +17,21 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
 
+from django.shortcuts import render
+
+
+def home_view(request):
+    return render(request, 'general/home.html', {})
+
 
 urlpatterns = [
     url(r'^login/$', auth_views.login, name='login'),
     url(r'^logout/$', auth_views.logout, name='logout'),
     url(r'^admin/', admin.site.urls),
     url(r'^assignments/', include('assignments.urls')),
-]
+    url(r'^', home_view, name='home'),
+    url(r'^signup/', auth_views.signup, name='signup'),
+
+
+
+
