@@ -1,0 +1,7 @@
+<h1> Alle spørsmål: </h1>
+
+<ul>
+{% for question in questions %}
+    <li> <a href="{% url 'show-question' question.id %}"> {{ question.questionText }} </a> </li>
+{% endfor %}
+</ul>

@@ -1,0 +1,7 @@
+<h1> {{ question.questionText }} </h1>
+
+<ul>
+{% for answer in answers %}
+    <li>{{ answer.answerText }}</li>
+{% endfor %}
+</ul>
