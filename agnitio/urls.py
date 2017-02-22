@@ -16,7 +16,7 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
-
+from authentication import views as core_views
 from django.shortcuts import render
 
 
@@ -30,8 +30,8 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^assignments/', include('assignments.urls')),
     url(r'^', home_view, name='home'),
-    url(r'^signup/', auth_views.signup, name='signup'),
-
+    url(r'^signup/', core_views.signup, name='signup'),
+]
 
 
 
