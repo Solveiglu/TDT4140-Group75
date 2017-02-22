@@ -12,7 +12,7 @@ def signup(request):
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=raw_password)
             login(request, user)
-            return redirect('home')
+            return redirect('home.html')
     else:
         form = UserCreationForm()
     return render(request, 'signup.html', {'form': form})
@@ -21,3 +21,4 @@ def update_profile(request, user_id):
     user = User.objects.get(pk=user_id)
     user.profile.bio = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit...'
     user.save()
+
