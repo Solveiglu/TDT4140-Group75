@@ -6,7 +6,7 @@ from django.dispatch import receiver
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     birth_date = models.DateField(null=True, blank=True)
-    group = models.ManyToManyField(Group)
+    #group = models.ManyToManyField(Group)
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):

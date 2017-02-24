@@ -29,8 +29,9 @@ urlpatterns = [
     url(r'^logout/$', auth_views.logout, name='logout'),
     url(r'^admin/', admin.site.urls),
     url(r'^assignments/', include('assignments.urls')),
+    url(r'^signup/$', core_views.signup, name='signup'),
     url(r'^', home_view, name='home'),
-    url(r'^signup/', core_views.signup, name='signup'),
+    url(r'^', view.restricted_login, name='home'),
 ]
 
 
