@@ -1,0 +1,46 @@
+[
+  {
+    "model": "assignments.Question",
+    "pk": 1,
+    "fields": {
+      "questionText": "Hva er 1+1?"
+    }
+  },{
+    "model": "assignments.Question",
+    "pk": 2,
+    "fields": {
+      "questionText": "Hva er 2+2?"
+    }
+  },{
+    "model": "assignments.Question",
+    "pk": 5,
+    "fields": {
+      "questionText": "Hva er 3+3?"
+    }
+  },
+  {
+    "model": "assignments.Answer",
+    "pk": 1,
+    "fields": {
+      "answerText": "1",
+      "isCorrect": false,
+      "question": 1
+    }
+  },{
+    "model": "assignments.Answer",
+    "pk": 2,
+    "fields": {
+      "answerText": "2",
+      "isCorrect": true,
+      "question": 1
+    }
+  },{
+    "model": "assignments.Answer",
+    "pk": 3,
+    "fields": {
+      "answerText": "3",
+      "isCorrect": false,
+      "question": 1
+    }
+  }
+]

@@ -1,7 +1,27 @@
-<h1> {{ question.questionText }} </h1>
+{% load static %}
+<link rel="stylesheet" href="{% static "css/main.css" %}" type="text/css"/>
 
-<ul>
-{% for answer in answers %}
-    <li>{{ answer.answerText }}</li>
+<h1>{{ question.questionText }}</h1>
+
+<form action="{% url 'answer' question.id %}" method="post">
+{% csrf_token %}
+{% for answer in question.answers.all %}
+    <input type="radio" name="answer" id="answer{{ forloop.counter }}" value="{{ answer.id }}" />
+    <label for="answer{{ forloop.counter }}">{{ answer.answerText }}</label><br />
 {% endfor %}
-</ul>
+<br/>
+<input type="submit" value="Submit" />
+</form>
+
+
+{% if question.next_id %}
+    <form action="{% url 'show-question' question.next_id %}">
+    <input type="submit" value="Next" />
+    </form>
+{% else %}
+    <form action="{% url 'list-questions' %}">
+    <input type="submit" value="Close" />
+    </form>
+{%  endif %}
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
