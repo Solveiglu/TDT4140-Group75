@@ -21,3 +21,4 @@ def showQuestion(request, questionId):
 
     answers = question.answers.all()
     return render(request, 'assignments/showQuestion.html', {'question': question, 'answers': answers})
+

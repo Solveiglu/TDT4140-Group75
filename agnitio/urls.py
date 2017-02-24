@@ -16,6 +16,12 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
+from authentication import views as core_views
+from django.shortcuts import render
+
+
+def home_view(request):
+    return render(request, 'general/home.html', {})
 
 
 urlpatterns = [
@@ -23,4 +29,10 @@ urlpatterns = [
     url(r'^logout/$', auth_views.logout, name='logout'),
     url(r'^admin/', admin.site.urls),
     url(r'^assignments/', include('assignments.urls')),
+    url(r'^signup/$', core_views.signup, name='signup'),
+    url(r'^', home_view, name='home'),
+    url(r'^', view.restricted_login, name='home'),
 ]
+
+
+
