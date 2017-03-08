@@ -1,0 +1,10 @@
+<h1>Create a new question</h1>
+<form method="POST" action="{% url 'new-question' %}">
+    {% csrf_token %}
+    {{ question_form.as_p }}
+    <hr/>
+    <table>
+        {{ answer_formset }}
+    </table>
+    <button type="submit">Submit</button>
+</form>
