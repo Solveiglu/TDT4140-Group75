@@ -13,6 +13,8 @@ urlpatterns = [
 
     url(r'^questions/(?P<questionId>[0-9]+)/answer/$', views.answer, name='answer'),
 
+    url(r'^questions/new', views.newQuestion, name='new-question')
+
 ]
 
 
