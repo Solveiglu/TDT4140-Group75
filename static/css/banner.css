@@ -1,0 +1,44 @@
+.banner {
+    padding: 0;
+}
+
+.banner .container {
+    width: 200%;
+}
+
+.banner img {
+    margin-bottom: 0;
+    width: 100%;
+}
+
+.banner .text-banner {
+    padding-top: 40px;
+    padding-bottom: 20px;
+}
+
+.banner .text-banner h1 {
+    display: inline-block;
+    padding-right: 30px;
+}
+
+.banner .text-banner a {
+    margin-top: -15px;
+}
+
+.banner #full {
+    display: block;
+}
+
+.banner #mobile {
+    display: none;
+}
+
+@media screen and (max-width: 767px) {
+    .banner #full {
+        display: none;
+    }
+
+    .banner #mobile {
+        display: block;
+    }
+}
