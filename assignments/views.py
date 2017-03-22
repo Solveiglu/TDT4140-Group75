@@ -6,6 +6,7 @@ from django.forms import ValidationError
 from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse
 from django.views.generic import CreateView
+from results.models import questionResult
 
 from .models import Answer, Question
 from django.views import generic
@@ -28,14 +29,18 @@ def answer(request, questionId):
         })
 
     if selected_answer.isCorrect:
+        result = questionResult(user = request.user, result = selected_answer.isCorrect, question = question)
+        result.save()
         return render(request, 'assignments/showQuestion.html', {
             'question': question,
-            'error_message': "Correct answer!",
+            'error_message': 'Riktig svar',
         })
     else:
+        result = questionResult(user = request.user, result = selected_answer.isCorrect, question = question)
+        result.save()
         return render(request, 'assignments/showQuestion.html', {
             'question': question,
-            'error_message': "Wrong answer!",
+            'error_message': 'Feil svar',
         })
 
 def showQuestion(request, questionId):
