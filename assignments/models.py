@@ -3,6 +3,7 @@ from django.db import models
 # Create your models here.
 
 
+
 class Subject(models.Model):
     subjectName = models.TextField(null=False)
 
@@ -22,6 +23,9 @@ class Question(models.Model):
         else:
             return None
 
+    def __str__(self):
+        return self.questionText
+
 class Answer(models.Model):
     answerText = models.TextField(null=False, blank=True)
     isCorrect = models.BooleanField(null=False)
@@ -29,3 +33,7 @@ class Answer(models.Model):
     # fremmednøkkel som peker på Question
     question = models.ForeignKey(Question, related_name='answers')
 
+class Assignment(models.Model):
+    assignmentName = models.CharField(null=False, max_length=75)
+    deadline = models.DateTimeField()
+    questions = models.ManyToManyField(Question)

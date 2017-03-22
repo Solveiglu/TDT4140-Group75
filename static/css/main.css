@@ -20,3 +20,7 @@ li {
 form {
     display: inline-block;
 }
+
+#id_assignment-questions {
+    list-style: none;
+}
