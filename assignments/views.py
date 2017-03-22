@@ -7,7 +7,7 @@ from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse
 from django.views.generic import CreateView
 
-from .models import Answer, Question
+from .models import Answer, Question, Subject
 from django.views import generic
 
 def listQuestions(request):
