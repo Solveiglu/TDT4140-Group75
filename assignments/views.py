@@ -1,13 +1,14 @@
 from django.db.models import TextField
 from django.forms import BaseFormSet
 from django.forms import BaseModelFormSet
+from django.forms import *
 from django.forms import ModelForm, Textarea, modelformset_factory
 from django.forms import ValidationError
 from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse
 from django.views.generic import CreateView
 
-from .models import Answer, Question
+from .models import Answer, Question, Assignment, Subject
 from django.views import generic
 
 def listQuestions(request):
@@ -156,3 +157,31 @@ def deleteQuestion(request, questionId):
         return redirect('list-questions')
     else:
         return redirect('edit-question', questionId)
+
+class AssignmentForm(ModelForm):
+    class Meta:
+        model = Assignment
+        fields = ['assignmentName', 'deadline', 'questions']
+
+
+
+def createAssignment(request):
+
+    if request.method == 'POST':
+        assignment_form = AssignmentForm(request.POST, request.FILES, prefix='assignment')
+        if assignment_form.is_valid():
+            assignment = assignment_form.save()
+        return redirect('new-assignment', assignment.id)
+    else:
+        assignment_form = AssignmentForm(prefix='assignment')
+
+    questions_text = []
+    questions = Question.objects.all()
+    for question in questions:
+        print(question.questionText)
+        questions_text.append(question.questionText)
+
+    return render(request, 'assignments/createAssignment.html', {
+        'questions': questions_text,
+        'assignment_form': assignment_form,
+    })

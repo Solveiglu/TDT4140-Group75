@@ -1,0 +1,24 @@
+{% extends "home.html" %}
+
+{% block styles %}
+
+{% endblock %}
+
+{% block header %}
+    {% include 'frontpage/header.html' %}
+{% endblock %}
+
+{% block content %}
+    <h1>Create a new assignment</h1>
+    <form method="POST" action="{% url 'new-assignment' %}">
+        {% csrf_token %}
+        {{ assignment_form.as_p }}
+        <button type="submit">Submit</button>
+    </form>
+    {{ assignment_form.non_field_errors }}
+    <div class="fieldWrapper">
+        {{ assignment_form.questions.errors }}
+    <label for="{{ assignment_form.questions.name_of_label }}">Email subject:</label>
+    {{ form.questions }}
+</div>
+{% endblock %}
