@@ -3,6 +3,7 @@
     {% csrf_token %}
     {{ question_form.as_p }}
     <hr/>
+    {{ answer_formset.non_form_errors }}
     <table>
         {{ answer_formset }}
     </table>
