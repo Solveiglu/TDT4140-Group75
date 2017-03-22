@@ -12,6 +12,7 @@
     <h1>Create a new assignment</h1>
     <form method="POST" action="{% url 'new-assignment' %}">
         {% csrf_token %}
+        {{ assignment_form.non_field_errors }}
         {{ assignment_form.as_p }}
         <button type="submit">Submit</button>
     </form>

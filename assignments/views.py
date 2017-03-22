@@ -162,26 +162,31 @@ class AssignmentForm(ModelForm):
     class Meta:
         model = Assignment
         fields = ['assignmentName', 'deadline', 'questions']
+        widgets = {
+            'questions': CheckboxSelectMultiple()
+        }
 
 
 
 def createAssignment(request):
-
     if request.method == 'POST':
         assignment_form = AssignmentForm(request.POST, request.FILES, prefix='assignment')
         if assignment_form.is_valid():
             assignment = assignment_form.save()
-        return redirect('new-assignment', assignment.id)
+            return redirect('new-assignment')
     else:
         assignment_form = AssignmentForm(prefix='assignment')
 
+    '''
     questions_text = []
     questions = Question.objects.all()
     for question in questions:
         print(question.questionText)
         questions_text.append(question.questionText)
 
+    '''
+
     return render(request, 'assignments/createAssignment.html', {
-        'questions': questions_text,
+        #'questions': questions_text,
         'assignment_form': assignment_form,
     })

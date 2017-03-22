@@ -23,6 +23,9 @@ class Question(models.Model):
         else:
             return None
 
+    def __str__(self):
+        return self.questionText
+
 class Answer(models.Model):
     answerText = models.TextField(null=False, blank=True)
     isCorrect = models.BooleanField(null=False)
