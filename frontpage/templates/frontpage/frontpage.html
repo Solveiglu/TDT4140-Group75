@@ -1,0 +1,21 @@
+{% extends "home.html" %}
+
+{% block styles %}
+
+{% endblock %}
+
+{% block header %}
+    {% include 'frontpage/header.html' %}
+{% endblock %}
+
+{% block content %}
+    {% for assigment in assignments.assignments %}
+        {% include 'frontpage/active.html' %}
+    {% endfor %}
+    {% include 'frontpage/active.html' %}
+    {% include 'frontpage/active.html' %}
+    {% include 'frontpage/active.html' %}
+{% endblock %}
+
+
+

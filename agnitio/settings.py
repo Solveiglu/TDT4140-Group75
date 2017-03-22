@@ -25,7 +25,7 @@ SECRET_KEY = 'q9l3t86hu%a8$8)x%tw*i*q-*cg!kdqf)u9(w*lo06x#v@p(@r'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -37,8 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rest_framework',
-    'assignments'
+    'assignments',
+    'frontpage',
 ]
 
 MIDDLEWARE = [
@@ -65,7 +65,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            'agnitio/templates'
+            'templates'
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -131,5 +131,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = '/Users/mobujordet/Documents/skole/PU/TDT4140-Group75/static/'
 
-STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
+#STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
