@@ -16,10 +16,4 @@
         {{ assignment_form.as_p }}
         <button type="submit">Submit</button>
     </form>
-    {{ assignment_form.non_field_errors }}
-    <div class="fieldWrapper">
-        {{ assignment_form.questions.errors }}
-    <label for="{{ assignment_form.questions.name_of_label }}">Email subject:</label>
-    {{ form.questions }}
-</div>
 {% endblock %}
