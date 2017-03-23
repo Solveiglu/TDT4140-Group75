@@ -3,7 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=no">
+    {% if perms.professorperms %}
 
+   <meta http-equiv="REFRESH" content="0;url=http://127.0.0.1:8000/assignments/new">
+
+   {%else%}
     {% block open-graph %}
         <!-- Open Graph data -->
         <meta property="og:title" content="Agnitio" />
@@ -13,7 +17,6 @@
     {% endblock %}
 
     {% block meta %}{% endblock %}
-
     <!-- Global scripts -->
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -37,7 +40,7 @@
 
     <link rel="icon" type="image/png" href="{% static "img/logo.png" %}">
     <title>Agnitio {% block title %}{% endblock %}</title>
-
+    {%endif%}
 </head>
 <body>
 
