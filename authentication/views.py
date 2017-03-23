@@ -39,7 +39,7 @@ def update_profile(request, user_id):
 
     from django.contrib.auth import authenticate, login
 
-def my_view(request):
+def login(request):
     username = request.POST['username']
     password = request.POST['password']
     user = authenticate(username=username, password=password)
