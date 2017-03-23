@@ -21,9 +21,13 @@ from django.contrib.auth import views as auth_views
 
 
 urlpatterns = [
-    url(r'', include('frontpage.urls'), name='index'),
+
     url(r'^login/', auth_views.login, name='login'),
     url(r'^logout/', auth_views.logout, name='logout'),
     url(r'^admin/', admin.site.urls),
     url(r'^assignments/', include('assignments.urls')),
+    url(r'', include('frontpage.urls'), name='index'),
+    url(r'', include('results.urls'), name='results'),
+    url(r'', include('authentication.urls'), name='signup'),
+
 ]
