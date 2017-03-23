@@ -1,10 +1,23 @@
+{% load static %}
+<link rel="stylesheet" href="{% static "css/main.css" %}" type="text/css"/>
+
+<h1> Alle resultater:</h1>
 
 
-{% block content %}
-  <h2>Sign up</h2>
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Sign up</button>
-  </form>
-{% endblock %}
+
+
+<ul>
+{% user|can_edit:questionResult%}
+    <h1>Hei</h1>
+
+    {%endif%}
+</ul>
+<ul>
+{% for questionResult in questionResult %}
+    {% if questionResult.user == request.user %}
+    <li> <ul>{{questionResult.result}} {{questionResult.user}} {{questionResult.question.id}}</ul></li>
+
+    {% endif %}
+{% endfor %}
+</ul>
+
