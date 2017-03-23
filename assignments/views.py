@@ -19,6 +19,7 @@ def listQuestions(request):
 
 def answer(request, questionId):
     question = get_object_or_404(Question, pk=questionId)
+
     try:
         selected_answer = question.answers.get(pk=request.POST['answer'])
     except (KeyError, Answer.DoesNotExist):

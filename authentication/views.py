@@ -20,6 +20,8 @@ def signup(request):
             username = form.cleaned_data.get('username')
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=raw_password)
+            g = Group.objects.get(name='Students')
+            g.user_set.add(user)
             login(request, user)
             return redirect('home.html')
     else:
@@ -31,4 +33,16 @@ def update_profile(request, user_id):
     user = User.objects.get(pk=user_id)
     user.profile.bio = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit...'
     user.save()
+
+    from django.contrib.auth import authenticate, login
+
+def my_view(request):
+    username = request.POST['username']
+    password = request.POST['password']
+    user = authenticate(username=username, password=password)
+    if user is not None:
+        login(request, user)
+        return redirect('home.html')
+    else:
+        return redirect('home.html')
 

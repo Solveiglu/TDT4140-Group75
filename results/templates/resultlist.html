@@ -2,21 +2,16 @@
 <link rel="stylesheet" href="{% static "css/main.css" %}" type="text/css"/>
 
 <h1> Alle resultater:</h1>
+{{ user.get_username }}
 
 
-
-
-<ul>
-{% user|can_edit:questionResult%}
-    <h1>Hei</h1>
-
-    {%endif%}
-</ul>
 <ul>
 {% for questionResult in questionResult %}
-    {% if questionResult.user == request.user %}
+    {% if perms.professorperms %}
     <li> <ul>{{questionResult.result}} {{questionResult.user}} {{questionResult.question.id}}</ul></li>
 
+    {% elif questionResult.user == request.user %}
+    <li> <ul>{{questionResult.result}} {{questionResult.question.id}}</ul></li>
     {% endif %}
 {% endfor %}
 </ul>
