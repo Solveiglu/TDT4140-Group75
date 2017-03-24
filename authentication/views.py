@@ -40,9 +40,10 @@ def my_view(request):
     username = request.POST['username']
     password = request.POST['password']
     user = authenticate(username=username, password=password)
+    print(user)
     if user is not None:
         login(request, user)
-        return redirect('home.html')
+        return redirect('new-question')
     else:
         return redirect('home.html')
 
