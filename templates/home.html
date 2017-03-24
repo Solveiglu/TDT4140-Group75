@@ -3,11 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=no">
-    {% if perms.professorperms %}
-
-   <meta http-equiv="REFRESH" content="0;url=http://127.0.0.1:8000/assignments/new">
-
-   {%else%}
     {% block open-graph %}
         <!-- Open Graph data -->
         <meta property="og:title" content="Agnitio" />
@@ -40,7 +35,6 @@
 
     <link rel="icon" type="image/png" href="{% static "img/logo.png" %}">
     <title>Agnitio {% block title %}{% endblock %}</title>
-    {%endif%}
 </head>
 <body>
 

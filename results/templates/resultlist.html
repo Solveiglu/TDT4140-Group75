@@ -20,10 +20,10 @@
         <ul>
         {% for questionResult in questionResult %}
             {% if perms.professorperms %}
-            <li> <ul>{{questionResult.result}} {{questionResult.user}} {{questionResult.question.id}}</ul></li>
+            <li> <ul>{{questionResult.result}} {{questionResult.user}} {{questionResult.question.questionText}}</ul></li>
 
             {% elif questionResult.user == request.user %}
-            <li> <ul>{{questionResult.result}} {{questionResult.question.id}}</ul></li>
+            <li> <ul>{{questionResult.result}} {{questionResult.question.questionText}}</ul></li>
             {% endif %}
         {% endfor %}
         </ul>
