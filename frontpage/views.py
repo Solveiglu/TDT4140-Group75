@@ -7,10 +7,12 @@ from assignments.models import *
 def index(request):
 
     subjects = Subject.objects.all()
+    assignments = Assignment.objects.all()
     print(request.user.groups.all())
     if request.user.groups.filter(name="Professors").exists():
         return redirect('assignments/new')
     else:
         return render(request, 'frontpage/frontpage.html', {
-            'subjects': subjects
+            'subjects': subjects,
+            'assignments': assignments
         })
