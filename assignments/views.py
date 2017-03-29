@@ -161,7 +161,14 @@ def deleteQuestion(request, questionId):
 class AssignmentForm(ModelForm):
     class Meta:
         model = Assignment
+<<<<<<< Updated upstream
         fields = ['assignmentName', 'deadline', 'questions']
+=======
+        fields = ['assignmentName', 'description', 'deadline', 'questions',]
+        widgets = {
+            'questions': CheckboxSelectMultiple()
+        }
+>>>>>>> Stashed changes
 
 
 

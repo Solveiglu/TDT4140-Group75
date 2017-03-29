@@ -34,3 +34,4 @@ class Assignment(models.Model):
     assignmentName = models.CharField(null=False, max_length=75)
     deadline = models.DateTimeField()
     questions = models.ManyToManyField(Question)
+    description = models.TextField(null=False)
