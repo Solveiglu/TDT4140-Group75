@@ -1,0 +1,33 @@
+{% extends "home.html" %}
+
+{% block styles %}
+
+{% endblock %}
+
+{% block header %}
+    {% include 'frontpage/header.html' %}
+{% endblock %}
+
+
+{% load static %}
+<link rel="stylesheet" href="{% static "css/main.css" %}" type="text/css"/>
+
+{% block content %}
+    <div class="col-sm-offset-1 ">
+        <h2>{{ assignment.assignmentName }}</h2>
+        <p>{{ assignment.questions.first.subject }} - {{ assignment.questions.count }} questions</p>
+        <hr/>
+        <form method="POST" action="{% url 'assignment' assignment.id %}">
+            {% csrf_token %}
+            {% for question in assignment.questions.all %}
+                <h4>{{ question.questionText }}</h4>
+                {% for answer in question.answers.all %}
+                    <input type="radio" name="answer-{{ question.id }}" id="answer-{{ question.id }}-{{ forloop.counter }}" value="{{ answer.id }}" />
+                    <label for="answer-{{ question.id }}-{{ forloop.counter }}">{{ answer.answerText }}</label><br />
+                {% endfor %}
+                <hr/>
+            {% endfor %}
+            <input type="submit" value="Submit" />
+        </form>
+    </div>
+{% endblock %}
