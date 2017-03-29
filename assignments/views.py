@@ -1,3 +1,6 @@
+import random
+
+from django.contrib.auth.decorators import login_required
 from django.db.models import TextField
 from django.forms import BaseFormSet
 from django.forms import BaseModelFormSet
@@ -184,7 +187,7 @@ def createAssignment(request):
         assignment_form = AssignmentForm(prefix='assignment')
 
     subjects = Subject.objects.all()
-    subjectId = int(request.GET.get('subject'))
+    subjectId = int(request.GET.get('subject', 0))
     if subjectId > 0:
         assignment_form.fields['questions'].queryset = Question.objects.filter(subject_id=subjectId)
 
@@ -192,4 +195,59 @@ def createAssignment(request):
         'assignment_form': assignment_form,
         'subjects': subjects,
         'subjectId': subjectId
+    })
+
+class PrivateAssignmentForm(Form):
+    assignment_name = CharField()
+    number_of_questions = IntegerField()
+    subject = ModelChoiceField(queryset=Subject.objects.all())
+
+@login_required
+def createPrivateAssignment(request):
+    if request.method == 'POST':
+        private_assignment_form = PrivateAssignmentForm(request.POST, request.FILES)
+        if private_assignment_form.is_valid():
+            assignment_name = private_assignment_form.cleaned_data['assignment_name']
+            number_of_questions = private_assignment_form.cleaned_data['number_of_questions']
+            subject = private_assignment_form.cleaned_data['subject']
+
+            all_questions = subject.questions.all()
+
+            questions = random.sample(list(all_questions), min(len(all_questions), number_of_questions))
+
+            assignment = Assignment(assignmentName=assignment_name, owner_id=request.user.id)
+            assignment.save()
+            assignment.questions=questions
+
+            print(assignment_name, number_of_questions, subject, assignment.id, assignment)
+
+            #return redirect('new-assignment')
+    else:
+        private_assignment_form = PrivateAssignmentForm()
+
+    return render(request, 'assignments/createPrivateAssignment.html', {
+        'private_assignment_form': private_assignment_form,
+    })
+
+def viewAssignment(request, assignmentId):
+    if request.method == 'POST':
+        print('hello post post')
+        print(request.POST)
+        for key, answer_id in request.POST.items():
+            if key.startswith('answer-'):
+                question_id = int(key.replace('answer-', ''))
+                question = Question.objects.get(id=question_id)
+                answer = Answer.objects.get(id=answer_id)
+                if answer not in question.answers.all():
+                    raise ValidationError('Question and answer do not match')
+                else:
+                    questionResult.objects.create(
+                        result=answer.isCorrect,
+                        user=request.user,
+                        question=question
+                    )
+
+    assignment = Assignment.objects.get(id=assignmentId)
+    return render(request, 'assignments/assignment.html', {
+        'assignment': assignment
     })
