@@ -183,16 +183,13 @@ def createAssignment(request):
     else:
         assignment_form = AssignmentForm(prefix='assignment')
 
-    '''
-    questions_text = []
-    questions = Question.objects.all()
-    for question in questions:
-        print(question.questionText)
-        questions_text.append(question.questionText)
-
-    '''
+    subjects = Subject.objects.all()
+    subjectId = int(request.GET.get('subject'))
+    if subjectId > 0:
+        assignment_form.fields['questions'].queryset = Question.objects.filter(subject_id=subjectId)
 
     return render(request, 'assignments/createAssignment.html', {
-        #'questions': questions_text,
         'assignment_form': assignment_form,
+        'subjects': subjects,
+        'subjectId': subjectId
     })
