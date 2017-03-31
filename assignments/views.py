@@ -182,7 +182,7 @@ def createAssignment(request):
         assignment_form = AssignmentForm(request.POST, request.FILES, prefix='assignment')
         if assignment_form.is_valid():
             assignment = assignment_form.save()
-            return redirect('new-assignment')
+            return redirect('assignment', assignment.id)
     else:
         assignment_form = AssignmentForm(prefix='assignment')
 
@@ -221,7 +221,7 @@ def createPrivateAssignment(request):
 
             print(assignment_name, number_of_questions, subject, assignment.id, assignment)
 
-            #return redirect('new-assignment')
+            return redirect('assignment', assignment.id)
     else:
         private_assignment_form = PrivateAssignmentForm()
 
@@ -246,6 +246,7 @@ def viewAssignment(request, assignmentId):
                         user=request.user,
                         question=question
                     )
+        return redirect('results')
 
     assignment = Assignment.objects.get(id=assignmentId)
     return render(request, 'assignments/assignment.html', {

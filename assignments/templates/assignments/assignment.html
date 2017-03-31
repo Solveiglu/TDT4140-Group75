@@ -17,7 +17,7 @@
         <h2>{{ assignment.assignmentName }}</h2>
         <p>{{ assignment.questions.first.subject }} - {{ assignment.questions.count }} questions</p>
         <hr/>
-        <form method="POST" action="{% url 'assignment' assignment.id %}">
+        <form method="POST" onsubmit="return confirm('Er du sikker på at du vil sende inn svarene?');" action="{% url 'assignment' assignment.id %}">
             {% csrf_token %}
             {% for question in assignment.questions.all %}
                 <h4>{{ question.questionText }}</h4>
