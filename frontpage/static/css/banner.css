@@ -1,44 +1,18 @@
-.banner {
-    padding: 0;
+html,
+.container {
+    font-size: 1em;
+    line-height: 1.4;
+    background-color: rgb(32,32,32);
 }
 
-.banner .container {
-    width: 200%;
+.logoContainer img {
+    max-height: 20px;
+
+}
+.brand {
+    height: 15px;
 }
 
-.banner img {
-    margin-bottom: 0;
-    width: 50%;
-}
-
-.banner .text-banner {
-    padding-top: 40px;
-    padding-bottom: 20px;
-}
-
-.banner .text-banner h1 {
-    display: inline-block;
-    padding-right: 30px;
-}
-
-.banner .text-banner a {
-    margin-top: -15px;
-}
-
-.banner #full {
-    display: block;
-}
-
-.banner #mobile {
-    display: none;
-}
-
-@media screen and (max-width: 767px) {
-    .banner #full {
-        display: none;
-    }
-
-    .banner #mobile {
-        display: block;
-    }
+.profileContainer {
+    max-height: 20px;
 }
