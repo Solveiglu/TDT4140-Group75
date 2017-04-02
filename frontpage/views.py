@@ -8,7 +8,6 @@ def index(request):
 
     subjects = Subject.objects.all()
     assignments = Assignment.objects.all()
-    print(request.user.groups.all())
     if request.user.groups.filter(name="Professors").exists():
         return redirect('assignments/new')
     else:
