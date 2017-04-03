@@ -41,6 +41,7 @@ class Assignment(models.Model):
     assignmentName = models.CharField(null=False, max_length=75)
     deadline = models.DateTimeField(null=True)
     questions = models.ManyToManyField(Question)
+    description = models.TextField(null=False)
     owner = models.ForeignKey(User, related_name='assignments', null=True) #owner=None --> alle har tilgang
 
     def __str__(self):
