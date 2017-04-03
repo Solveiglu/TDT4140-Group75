@@ -14,8 +14,9 @@
 
 {% block content %}
     <div class="col-sm-offset-1 ">
-        <h2>{{ question.questionText }}</h2>
+        <h2>{{ s }}</h2>
         <p>{{ question.subject }}</p>
+
         <form action="{% url 'answer' question.id %}" method="post">
         {% csrf_token %}
         {% for answer in question.answers.all %}
@@ -26,6 +27,7 @@
         <input type="submit" value="Submit" />
         </form>
 
+
         {% if question.next_id %}
             <form action="{% url 'show-question' question.next_id %}">
             <input type="submit" value="Next" />
@@ -35,6 +37,7 @@
             <input type="submit" value="Close" />
             </form>
         {%  endif %}
+
         {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
     </div>
 {% endblock %}
