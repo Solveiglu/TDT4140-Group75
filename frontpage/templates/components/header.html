@@ -1,0 +1,31 @@
+<div class="logoheader">
+  <nav class="navbar navbar-inverse navbar-static-top">
+    <div class="container">
+      <div class="navbar-header">
+        {% load static %}
+        <a class="navbar-brand" href="/"><img src="{% static "img/logo.png" %}" class="nav_img" alt="Agnitio" height="auto" max-width="100%">
+        </a>
+      </div>
+      <div id="navbar3" class="navbar-collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <li class="nav navbar-nav navbar-right">
+              <a href="/logout"><img src="{% static "img/profile.png" %}" alt="profile"  height="100" max-width="100%"></a>
+          </li>
+        </ul>
+      </div>
+      <!--/.nav-collapse -->
+    </div>
+    <!--/.container-fluid -->
+  </nav>
+</div>
+{% load static %}
+<div class="container">
+    <div class="row">
+        <div class="logoContainer">
+            <a id="logo" class="brand" href="/"><img src="{% static "img/logo.png" %}" class="nav_img" alt="Agnitio">
+        </div>
+        <div class="profileContainer">
+            <a id="profile" href="/logout"><img src="{% static "img/profile.png" %}" class="nav_profile" alt="profile"></a>
+        </div>
+    </div>
+</div>

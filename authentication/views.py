@@ -23,7 +23,7 @@ def signup(request):
             g = Group.objects.get(name='Students')
             g.user_set.add(user)
             login(request, user)
-            return redirect('home.html')
+            return redirect('/')
     else:
         form = UserCreationForm()
     return render(request, 'signup.html', {'form': form})
