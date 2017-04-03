@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 from django.shortcuts import render, redirect
 from assignments.models import *
 # Create your views here.
@@ -7,7 +8,7 @@ from assignments.models import *
 def index(request):
 
     subjects = Subject.objects.all()
-    assignments = Assignment.objects.all()
+    assignments = Assignment.objects.filter(Q(owner=None) | Q(owner=request.user)).all()
     if request.user.groups.filter(name="Professors").exists():
         return redirect('assignments/new')
     else:
