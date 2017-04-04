@@ -1,11 +1,11 @@
 html,
-.container {
+.headerContainer {
     font-size: 1em;
     line-height: 1.4;
     background-color: rgb(32,32,32);
 }
 
-.logoContainer img {
+.row img {
     max-height: 20px;
 
 }
