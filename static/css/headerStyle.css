@@ -1,4 +1,5 @@
 .container-fluid {
+    margin-bottom: 10px;
 }
 #headerBox {
     background-color: rgb(32,32,32);
