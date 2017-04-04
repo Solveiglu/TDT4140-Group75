@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.db import models
 
 # Create your models here.
@@ -33,7 +34,15 @@ class Answer(models.Model):
     # fremmednøkkel som peker på Question
     question = models.ForeignKey(Question, related_name='answers')
 
+    def __str__(self):
+        return self.answerText
+
 class Assignment(models.Model):
     assignmentName = models.CharField(null=False, max_length=75)
-    deadline = models.DateTimeField()
+    deadline = models.DateTimeField(null=True)
     questions = models.ManyToManyField(Question)
+    description = models.TextField(null=False)
+    owner = models.ForeignKey(User, related_name='assignments', null=True) #owner=None --> alle har tilgang
+
+    def __str__(self):
+        return self.assignmentName
