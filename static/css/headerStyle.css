@@ -1,0 +1,27 @@
+.container-fluid {
+    margin-bottom: 10px;
+}
+#headerBox {
+    background-color: rgb(32,32,32);
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+#headerBox img  {
+    width: 100%;
+    height: auto;
+}
+#logoContainer {
+
+}
+
+#logo {
+    min-width: 100%;
+}
+
+#profileContainer {
+    text-align: right;
+}
+
+#profile {
+    max-width: 100px;
+}

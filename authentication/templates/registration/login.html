@@ -5,12 +5,11 @@
 {% endblock %}
 
 {% block header %}
-    {% include "frontpage/header.html" %}
+    {% include "components/header.html" %}
 {% endblock %}
 
 {% block content %}
-
-    <div class="container">
+<div class="container">
     <div class="row">
         <div class="col-sm-offset-2 col-sm-6 col-md-4 col-md-offset-4 ">
             {% if form.errors %}
@@ -42,7 +41,13 @@
                         </p>
                         <input type="hidden" name="next" value="{{ next }}" />
                     </form>
+                </div>
+                <div class="panel-footer">
+                    <div class="text-center">
+                        <a class="btn" href="/signup">
+                        <button type="button" class="btn btn-default btn-sm" >Registrer ny bruker</button></a>
                     </div>
+                </div>
             </div>
         </div>
     </div>

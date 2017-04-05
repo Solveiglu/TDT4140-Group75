@@ -117,6 +117,9 @@ LOGIN_URL = '/login'
 
 LOGIN_REDIRECT_URL = '/'
 
+SIGNUP_URL = '/signup'
+SIGNUP_REDIRECT_URL = '/'
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/

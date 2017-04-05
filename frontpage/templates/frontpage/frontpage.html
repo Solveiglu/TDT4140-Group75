@@ -1,18 +1,19 @@
 {% extends "home.html" %}
 
 {% block styles %}
-    {{ block.super }}
-    <link rel="stylesheet" href="{{ STATIC_URL }}../css/frontpage.css">
-    <link rel="stylesheet" href="{{ STATIC_URL }}../css/banner.css">
+    {% load static %}
 {% endblock %}
 
+
+
+
 {% block header %}
-    {% include "frontpage/header.html" %}
+    {% include "components/header.html" %}
 {% endblock %}
 
 {% block content %}
     {% for assignment in assignments %}
-        {% include 'frontpage/active.html' with currentAssignment=assignment %}
+        {% include 'components/active.html' with currentAssignment=assignment %}
     {% endfor %}
 {% endblock %}
 
