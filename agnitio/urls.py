@@ -19,7 +19,6 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
 
-
 urlpatterns = [
 
     url(r'^login', auth_views.login, name='login'),
@@ -29,5 +28,6 @@ urlpatterns = [
     url(r'', include('frontpage.urls'), name='index'),
     url(r'', include('results.urls'), name='results'),
     url(r'', include('authentication.urls'), name='signup'),
+
 
 ]

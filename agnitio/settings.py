@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'assignments',
     'frontpage',
     'results',
-    'authentication'
+    'authentication',
+    'graphos',
 ]
 
 MIDDLEWARE = [

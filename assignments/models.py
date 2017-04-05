@@ -27,15 +27,6 @@ class Question(models.Model):
     def __str__(self):
         return self.questionText
 
-class Answer(models.Model):
-    answerText = models.TextField(null=False, blank=True)
-    isCorrect = models.BooleanField(null=False)
-
-    # fremmednøkkel som peker på Question
-    question = models.ForeignKey(Question, related_name='answers')
-
-    def __str__(self):
-        return self.answerText
 
 class Assignment(models.Model):
     assignmentName = models.CharField(null=False, max_length=75)
@@ -45,3 +36,14 @@ class Assignment(models.Model):
 
     def __str__(self):
         return self.assignmentName
+
+class Answer(models.Model):
+    answerText = models.TextField(null=False, blank=True)
+    isCorrect = models.BooleanField(null=False)
+
+    # fremmednøkkel som peker på Question
+    assignment = models.ForeignKey(Assignment,related_name='AnsweredInAssignment')
+    question = models.ForeignKey(Question, related_name='answers')
+
+    def __str__(self):
+        return self.answerText

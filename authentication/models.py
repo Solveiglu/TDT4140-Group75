@@ -6,8 +6,10 @@ from django.contrib.auth.backends import ModelBackend
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    birth_date = models.DateField(null=True, blank=True)
-    #group = models.ManyToManyField(Group)
+    bio = models.TextField(max_length=500, blank=True)
+    firstName = models.CharField(max_length=30, blank=True)
+    lastName = models.CharField(max_length=30, blank=True)
+    birthDate = models.DateField(null=True, blank=True)
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
@@ -17,9 +19,3 @@ def create_user_profile(sender, instance, created, **kwargs):
 @receiver(post_save, sender=User)
 def save_user_profile(sender, instance, **kwargs):
     instance.profile.save()
-
-class professor(models.Model):
-    class Meta:
-        permissions = (
-            ("professorperms", "Can do professor things"),
-        )

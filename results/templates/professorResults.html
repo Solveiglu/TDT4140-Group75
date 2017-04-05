@@ -1,0 +1,10 @@
+{% extends "home.html" %}
+
+{% block styles %}
+
+{% endblock %}
+
+{% block header %}
+    {% include 'frontpage/header.html' %}
+{{ chart.as_html }} {{ chart2.as_html }}
+{% endblock %}
