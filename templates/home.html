@@ -23,7 +23,13 @@
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+
+      <!-- Graph library -->
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script src="http://yui.yahooapis.com/3.10.0/build/yui/yui-min.js"></script>
+    <script type="text/javascript">
+    google.load("visualization", "1", {packages:["corechart"]});
+    </script>
 
     <!-- chart rendering -->
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
@@ -38,6 +44,8 @@
     <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="{% static "css/mainStyle.css" %}">
     <link rel="stylesheet" type="text/css" href="{% static "css/headerStyle.css" %}">
+
+
 
     {% block styles %}{% endblock %}
 

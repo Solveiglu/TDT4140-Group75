@@ -6,6 +6,7 @@ import assignments
 
 class FinishedAssignment(models.Model):
     user = models.ForeignKey(to=User, related_name="results", blank=True, null=True)
+    question = models.ForeignKey(Question, related_name='result')
     assignment = models.ForeignKey(assignments.models.Assignment, related_name='assignment')
     finished = models.DateTimeField(null=True)
     answers = models.ManyToManyField(assignments.models.Answer)
