@@ -186,7 +186,7 @@ def createAssignment(request):
     if subjectId > 0:
         assignment_form.fields['questions'].queryset = Question.objects.filter(subject_id=subjectId)
 
-    return render(request, 'assignments/createAssignment.html', {
+    return render(request, 'professor/createAssignment.html', {
         'assignment_form': assignment_form,
         'subjects': subjects,
         'subjectId': subjectId
@@ -240,5 +240,18 @@ def viewAssignment(request, assignmentId):
 
     assignment = Assignment.objects.get(id=assignmentId)
     return render(request, 'assignments/assignment.html', {
+        'assignment': assignment
+    })
+
+
+def showAssignment(request, assignmentId):
+
+    try:
+        assignment = Assignment.objects.get(id=assignmentId)
+    except Question.DoesNotExist:
+        return render(request, 'general/404.html', {
+            'message': 'Oppgave {} eksisterer ikke'.format(questionId)
+        }, status=404)
+    return render(request, 'professor/assignmentView.html', {
         'assignment': assignment
     })

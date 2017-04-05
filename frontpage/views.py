@@ -10,7 +10,9 @@ def index(request):
     subjects = Subject.objects.all()
     assignments = Assignment.objects.filter(Q(owner=None) | Q(owner=request.user)).all()
     if request.user.groups.filter(name="Professors").exists():
-        return redirect('assignments/new')
+        return render(request, 'frontpage/professor_front.html', {
+            'assignments': assignments
+        })
     else:
         return render(request, 'frontpage/frontpage.html', {
             'subjects': subjects,
