@@ -15,8 +15,7 @@
 </form>
 
 
-{% if question.next_id %}
-    <form action="{% url 'show-question' question.next_id %}">
+{% if question.next_id %}    <form action="{% url 'show-question' question.next_id %}">
     <input type="submit" value="Next" />
     </form>
 {% else %}
