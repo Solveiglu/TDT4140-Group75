@@ -9,7 +9,8 @@
 {% endblock %}
 
 {% block content %}
-    <div class="col-sm-offset-1 ">
+    <div class="col-sm-12 col-md-offset-1 col-md-10">
+        <a href="../.."><button class="btn btn-success btn-lg" type="back"><- Tilbake</button></a>
         <h1>Create a new question</h1>
         <hr/>
         <form method="POST" action="{% url 'new-question' %}">
@@ -20,7 +21,9 @@
             <table>
                 {{ answer_formset }}
             </table>
-            <button type="submit">Submit</button>
+            <center>
+                <button class="btn btn-primary btn-lg" type="submit">Submit</button>
+            </center>
         </form>
     </div>
 {% endblock %}
