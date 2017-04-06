@@ -10,7 +10,6 @@ from django.forms import ValidationError
 from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse
 from django.views.generic import CreateView
-from results.models import questionResult
 
 from .models import Answer, Question, Assignment, Subject
 from django.views import generic
@@ -34,15 +33,11 @@ def answer(request, questionId):
         })
 
     if selected_answer.isCorrect:
-        result = questionResult(user = request.user, result = selected_answer.isCorrect, question = question)
-        result.save()
         return render(request, 'assignments/showQuestion.html', {
             'question': question,
             'error_message': 'Riktig svar',
         })
     else:
-        result = questionResult(user = request.user, result = selected_answer.isCorrect, question = question)
-        result.save()
         return render(request, 'assignments/showQuestion.html', {
             'question': question,
             'error_message': 'Feil svar',
@@ -240,12 +235,7 @@ def viewAssignment(request, assignmentId):
                 answer = Answer.objects.get(id=answer_id)
                 if answer not in question.answers.all():
                     raise ValidationError('Question and answer do not match')
-                else:
-                    questionResult.objects.create(
-                        result=answer.isCorrect,
-                        user=request.user,
-                        question=question
-                    )
+
         return redirect('results')
 
     assignment = Assignment.objects.get(id=assignmentId)

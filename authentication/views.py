@@ -7,10 +7,10 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth.models import Group, Permission
 from django.contrib.contenttypes.models import ContentType
-from authentication.models import Profile
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
-
+new_group, created = Group.objects.get_or_create(name='Students')
+new_group, created = Group.objects.get_or_create(name='Professor')
 def signup(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
@@ -18,8 +18,11 @@ def signup(request):
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get('username')
-            raw_password = form.cleaned_data.get('password1')
-            user = authenticate(username=username, password=raw_password)
+            rawPassword = form.cleaned_data.get('password1')
+#            firstName = form.cleaned_data.get('firstname')
+#            lastName = form.cleaned_data.get('lastname')
+#            bio = form.cleaned_data.get('bio')
+            user = authenticate(username=username, password=rawPassword)
             g = Group.objects.get(name='Students')
             g.user_set.add(user)
             login(request, user)
