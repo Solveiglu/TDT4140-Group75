@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from results.models import finishedAssignment
+from results.models import FinishedAssignment
 from django.contrib.auth.models import User
 from django.contrib.auth.models import Group, Permission
 from django.shortcuts import render, redirect
@@ -12,7 +12,7 @@ from graphos.renderers.yui import LineChart, BarChart, ColumnChart
 
 def results(request):
 
-    temp = finishedAssignment.objects.all()
+    temp = FinishedAssignment.objects.all()
     userResults = []
     data = ['Øving', 'Ditt Resultat', 'Klassens Resultat']
 
