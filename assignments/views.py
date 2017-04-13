@@ -10,6 +10,7 @@ from django.forms import ValidationError
 from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse
 from django.views.generic import CreateView
+from django.http import HttpResponseForbidden
 
 from .models import Answer, Question, Assignment, Subject
 from django.views import generic
@@ -165,7 +166,7 @@ def deleteQuestion(request, questionId):
 class AssignmentForm(ModelForm):
     class Meta:
         model = Assignment
-        fields = ['assignmentName', 'description', 'deadline', 'questions',]
+        fields = ['assignmentName', 'description', 'deadline', 'questions']
         widgets = {
             'questions': CheckboxSelectMultiple()
         }
@@ -254,4 +255,25 @@ def showAssignment(request, assignmentId):
         }, status=404)
     return render(request, 'professor/assignmentView.html', {
         'assignment': assignment
+    })
+
+
+@login_required
+def editAssignment(request, assignmentId):
+
+    if assignmentId:
+        assignment = get_object_or_404(Assignment, pk=assignmentId)
+
+    else:
+        assignment = Assignment(owner=request.user)
+
+    form = AssignmentForm(request.POST or None, instance=assignment)
+
+    if request.POST and form.is_valid():
+        form.save()
+
+        return redirect('show-assignment', assignmentId)
+    return render(request, 'professor/editAssignment.html', {
+        'form': form,
+        'assignment_id': assignmentId,
     })

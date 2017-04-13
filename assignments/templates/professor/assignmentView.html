@@ -15,15 +15,25 @@
 {% block content %}
     <div class="col-md-offset-1 col-sm-12 col-md-10">
         <div class="row">
-            <div class="text-center">
-                <a class="btn" href="/">
+            <a class="btn" href="/">
                 <button type="button" class="btn btn-success btn-lg" >Tilbake</button></a>
-                <a class="btn" href="../../{{ currentAssignment.id }}">
-                <button type="button" class="btn btn-info btn-lg" >Rediger</button></a>
+        </div>
+        <div class="row">
+            <div class="col-md-5">
+                <h2>{{ assignment.assignmentName }}</h2>
+                <h5>
+                    {{ assignment.description }}
+                 </h5>
+                 <p>{{ assignment.questions.first.subject }} - {{ assignment.questions.count }} questions</p>
+            </div>
+            <div class="col-md-5">
+                <div class="text-center">
+                    <a class="btn" href="../{{ assignment.id }}/edit">
+                    <button type="button" class="btn btn-info btn-lg" >Rediger</button></a>
+                </div>
             </div>
         </div>
-        <h2>{{ assignment.assignmentName }}</h2>
-        <p>{{ assignment.questions.first.subject }} - {{ assignment.questions.count }} questions</p>
+
         <hr/>
         <form method="POST" onsubmit="return confirm('Er du sikker på at du vil sende inn svarene?');" action="{% url 'assignment' assignment.id %}">
             {% csrf_token %}

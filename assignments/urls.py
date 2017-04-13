@@ -22,7 +22,8 @@ urlpatterns = [
     url(r'^new-private$', views.createPrivateAssignment, name='new-private-assignment'),
 
     url(r'^(?P<assignmentId>[0-9]+)$', views.viewAssignment, name='assignment'),
-    url(r'^show/(?P<assignmentId>[0-9]+)', views.showAssignment, name='show-assignment')
+    url(r'^show/(?P<assignmentId>[0-9]+)', views.showAssignment, name='show-assignment'),
+    url(r'^(?P<assignmentId>[0-9]+)/edit', views.editAssignment, name='edit-assignment')
 ]
 
 
