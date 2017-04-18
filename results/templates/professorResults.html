@@ -1,18 +1,15 @@
-{% load static %}
-<link rel="stylesheet" href="{% static "css/main.css" %}" type="text/css"/>
+{% extends "home.html" %}
 
-<h1> Alle resultater:</h1>
-{{ user.get_username }}
+{% block styles %}
 
-
-<ul>
-{% for questionResult in questionResult %}
-    {% if perms.professorperms %}
-    <li> <ul>{{questionResult.result}} {{questionResult.user}} {{questionResult.question.id}}</ul></li>
-
-    {% elif questionResult.user == request.user %}
-    <li> <ul>{{questionResult.result}} {{questionResult.question.id}}</ul></li>
-    {% endif %}
-{% endfor %}
-</ul>
+{% endblock %}
+{% block header %}
+    {% include 'components/header.html' %}
+{% endblock %}
+{% block content %}
+{{ chart.as_html }}
+    {% for result in results %}
+        {% include 'components/proffesorResultsAktive.html' with currentAssignment=assignment %}
+    {% endfor %}
+{% endblock %}
 

@@ -17,8 +17,11 @@ urlpatterns = [
 
     url(r'^questions/(?P<questionId>[0-9]+)/edit', views.editQuestion, name='edit-question'),
 
-    url(r'^questions/(?P<questionId>[0-9]+)/delete', views.deleteQuestion, name='delete-question')
+    url(r'^questions/(?P<questionId>[0-9]+)/delete', views.deleteQuestion, name='delete-question'),
+    url(r'^new$', views.createAssignment, name='new-assignment'),
+    url(r'^new-private$', views.createPrivateAssignment, name='new-private-assignment'),
 
+    url(r'^(?P<assignmentId>[0-9]+)$', views.viewAssignment, name='assignment'),
 ]
 
 

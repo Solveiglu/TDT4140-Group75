@@ -1,0 +1,19 @@
+{% extends "home.html" %}
+
+{% block styles %}
+
+{% endblock %}
+
+{% block header %}
+    {% include 'components/header.html' %}
+{% endblock %}
+
+{% block content %}
+    <h1>Generate a new assignment</h1>
+    <form method="POST" action="{% url 'new-private-assignment' %}">
+        {% csrf_token %}
+        {{ private_assignment_form.non_field_errors }}
+        {{ private_assignment_form.as_p }}
+        <button type="submit">Submit</button>
+    </form>
+{% endblock %}

@@ -1,20 +1,20 @@
 {% extends "home.html" %}
 
 {% block styles %}
-
+    {% load static %}
 {% endblock %}
 
+
+
+
 {% block header %}
-    {% include 'frontpage/header.html' %}
+    {% include "components/header.html" %}
 {% endblock %}
 
 {% block content %}
-    {% for assigment in assignments.assignments %}
-        {% include 'frontpage/active.html' %}
+    {% for assignment in assignments %}
+        {% include 'components/active.html' with currentAssignment=assignment %}
     {% endfor %}
-    {% include 'frontpage/active.html' %}
-    {% include 'frontpage/active.html' %}
-    {% include 'frontpage/active.html' %}
 {% endblock %}
 
 

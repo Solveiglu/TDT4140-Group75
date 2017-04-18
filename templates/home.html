@@ -3,8 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=no">
-{% if user.permission %}
-    <!-- whatever needs to be put here based on the user's permission -->
     {% block open-graph %}
         <!-- Open Graph data -->
         <meta property="og:title" content="Agnitio" />
@@ -14,7 +12,6 @@
     {% endblock %}
 
     {% block meta %}{% endblock %}
-
     <!-- Global scripts -->
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -25,25 +22,26 @@
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-      <!-- Graph library -->
+    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+
+    <!-- chart rendering -->
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
     <script src="http://yui.yahooapis.com/3.10.0/build/yui/yui-min.js"></script>
     <script type="text/javascript">
     google.load("visualization", "1", {packages:["corechart"]});
     </script>
-
+    {% load static %}
     <!-- Global styles -->
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.slick/1.3.7/slick.css"/>
     <link href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
     <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-
-
+    <link rel="stylesheet" type="text/css" href="{% static "css/mainStyle.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "css/headerStyle.css" %}">
 
     {% block styles %}{% endblock %}
 
-    <link rel="icon" type="image/png" href="{{ STATIC_URL }}static/img/logo.png">
-    <title>Agnitio {% block title %}{% endblock %}</title>
-
+    <link rel="icon" type="image/png" href="{% static "img/fane.png" %}">
+    <title>Agnitio{% block title %}{% endblock %}</title>
 </head>
 <body>
 

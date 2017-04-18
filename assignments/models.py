@@ -32,6 +32,8 @@ class Assignment(models.Model):
     assignmentName = models.CharField(null=False, max_length=75)
     deadline = models.DateTimeField(null=True)
     questions = models.ManyToManyField(Question)
+    description = models.TextField(null=False)
+    passingGrade = models.PositiveIntegerField(null=True)
     owner = models.ForeignKey(User, related_name='assignments', null=True) #owner=None --> alle har tilgang
 
     def __str__(self):
@@ -42,7 +44,6 @@ class Answer(models.Model):
     isCorrect = models.BooleanField(null=False)
 
     # fremmednøkkel som peker på Question
-    assignment = models.ForeignKey(Assignment,related_name='AnsweredInAssignment')
     question = models.ForeignKey(Question, related_name='answers')
 
     def __str__(self):

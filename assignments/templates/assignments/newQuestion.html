@@ -1,11 +1,26 @@
-<h1>Create a new question</h1>
-<form method="POST" action="{% url 'new-question' %}">
-    {% csrf_token %}
-    {{ question_form.as_p }}
-    <hr/>
-    {{ answer_formset.non_form_errors }}
-    <table>
-        {{ answer_formset }}
-    </table>
-    <button type="submit">Submit</button>
-</form>
+{% extends "home.html" %}
+
+{% block styles %}
+
+{% endblock %}
+
+{% block header %}
+    {% include 'components/header.html' %}
+{% endblock %}
+
+{% block content %}
+    <div class="col-sm-offset-1 ">
+        <h1>Create a new question</h1>
+        <hr/>
+        <form method="POST" action="{% url 'new-question' %}">
+            {% csrf_token %}
+            {{ question_form.as_p }}
+            <hr/>
+            {{ answer_formset.non_form_errors }}
+            <table>
+                {{ answer_formset }}
+            </table>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+{% endblock %}
