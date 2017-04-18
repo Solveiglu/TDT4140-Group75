@@ -1,0 +1,28 @@
+{% extends "home.html" %}
+
+{% block styles %}
+
+{% endblock %}
+
+{% block header %}
+    {% include 'components/header.html' %}
+{% endblock %}
+
+{% block content %}
+
+    <div class="col-md-offset-1 col-md-10">
+        <a class="btn" href="../show/{{ assignment_id }}">
+        <button type="button" class="btn btn-success btn-lg" >Tilbake</button></a>
+        <h1>Edit assignment</h1>
+        <br/>
+        <hr/>
+        <form method="POST" action="{% url 'edit-assignment' assignment_id %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <center>
+                <button class="btn btn-primary btn-lg" type="submit">Submit</button>
+            </center>
+        </form>
+    </div>
+{% endblock %}
+
