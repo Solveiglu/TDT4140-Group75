@@ -63,6 +63,7 @@ REST_FRAMEWORK = {
 }
 
 ROOT_URLCONF = 'agnitio.urls'
+LOGIN_REDIRECT_URL = '/'
 
 TEMPLATES = [
     {

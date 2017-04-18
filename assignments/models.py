@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
+from django.utils import timezone
 
 # Create your models here.
 
@@ -29,8 +30,8 @@ class Question(models.Model):
 
 
 class Assignment(models.Model):
-    assignmentName = models.CharField(null=False, max_length=75)
-    deadline = models.DateTimeField(null=True)
+    assignmentName = models.CharField(null=False, max_length=75, default="oving")
+    deadline = models.DateTimeField(null=True, default=timezone.now)
     questions = models.ManyToManyField(Question)
     description = models.TextField(null=False)
     passingGrade = models.PositiveIntegerField(null=True)
@@ -44,7 +45,13 @@ class Answer(models.Model):
     isCorrect = models.BooleanField(null=False)
 
     # fremmednøkkel som peker på Question
+    assignment = models.ForeignKey(Assignment, null=True, related_name='AnsweredInAssignment')
     question = models.ForeignKey(Question, related_name='answers')
+
+    def save(self):
+        if self.assignment is None:  # Set default reference
+            self.assignment = Assignment.objects.get(id=1)
+        super(Answer, self).save()
 
     def __str__(self):
         return self.answerText

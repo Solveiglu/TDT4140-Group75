@@ -4,8 +4,12 @@ import assignments
 from django.db import models
 
 
-class FinishedAssignment(models.Model):
+class QuestionResult(models.Model):
+    result = models.BooleanField(null=False)
     user = models.ForeignKey(to=User, related_name="results", blank=True, null=True)
+    question = models.ForeignKey(Question, related_name='result')
+
+class FinishedAssignment(models.Model):
     assignment = models.ForeignKey(assignments.models.Assignment, related_name='assignment')
     answer = models.ManyToManyField(assignments.models.Answer, related_name='answersToAssignment')
     passed = models.BooleanField(null=False, default=False)

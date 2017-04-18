@@ -1,3 +1,4 @@
+
 {% extends "home.html" %}
 
 {% block styles %}
@@ -13,4 +14,3 @@
         {% include 'components/resultsAktive.html' with currentAssignment=assignment currentResults=scoreList number=forloop.counter0 %}
     {% endfor %}
 {% endblock %}
-

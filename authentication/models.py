@@ -19,3 +19,4 @@ from django.contrib.auth.backends import ModelBackend
 #@receiver(post_save, sender=User)
 #def save_user_profile(sender, instance, **kwargs):
 #    instance.profile.save()
+
