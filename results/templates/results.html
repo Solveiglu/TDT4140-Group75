@@ -1,3 +1,4 @@
+
 {% extends "home.html" %}
 
 {% block styles %}
@@ -6,5 +7,9 @@
 
 {% block header %}
     {% include 'components/header.html' %}
-{{ chart.as_html }} {{ chart2.as_html }}
+
+{% endblock %}
+
+{% block content %}
+    {{ chart.as_html }} {{ chart2.as_html }}
 {% endblock %}
