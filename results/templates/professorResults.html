@@ -3,8 +3,13 @@
 {% block styles %}
 
 {% endblock %}
-
 {% block header %}
-    {% include 'frontpage/header.html' %}
-{{ chart.as_html }} {{ chart2.as_html }}
+    {% include 'components/header.html' %}
 {% endblock %}
+{% block content %}
+{{ chart.as_html }}
+    {% for result in results %}
+        {% include 'components/proffesorResultsAktive.html' with currentAssignment=assignment %}
+    {% endfor %}
+{% endblock %}
+
