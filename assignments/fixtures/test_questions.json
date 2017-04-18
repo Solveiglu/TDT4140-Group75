@@ -1,21 +1,31 @@
 [
   {
+    "model": "assignments.Subject",
+    "pk": 1,
+    "fields": {
+      "subjectName": "Testemne"
+    }
+  },
+  {
     "model": "assignments.Question",
     "pk": 1,
     "fields": {
-      "questionText": "Hva er 1+1?"
+      "questionText": "Hva er 1+1?",
+      "subject": 1
     }
   },{
     "model": "assignments.Question",
     "pk": 2,
     "fields": {
-      "questionText": "Hva er 2+2?"
+      "questionText": "Hva er 2+2?",
+      "subject": 1
     }
   },{
     "model": "assignments.Question",
     "pk": 5,
     "fields": {
-      "questionText": "Hva er 3+3?"
+      "questionText": "Hva er 3+3?",
+      "subject": 1
     }
   },
   {

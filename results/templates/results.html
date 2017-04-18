@@ -5,6 +5,7 @@
 {% endblock %}
 {% block header %}
     {% include 'components/header.html' %}
+<<<<<<< HEAD
 {% endblock %}
 {% block content %}
 {{ chart.as_html }}
@@ -12,5 +13,8 @@
 
         {% include 'components/resultsAktive.html' with currentAssignment=assignment currentResults=scoreList number=forloop.counter0 %}
     {% endfor %}
+=======
+{{ chart.as_html }} {{ chart2.as_html }}
+>>>>>>> 9e7d8c22d8850d2d6b33b1c87959020d985ed544
 {% endblock %}
 
