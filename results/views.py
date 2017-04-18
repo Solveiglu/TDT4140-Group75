@@ -96,6 +96,9 @@ def professorResults(request):
         studentScore = SimpleDataSource(data=data)
         chart = LineChart(studentScore)
         chart2 = BarChart(studentScore)
+        passedPercentage = 0
+        for assignment in tempFinishedAssignment:
+            x
         return render(request, 'professorResults.html', {
             'results': tempAssignment,
             'score': scoreList,
