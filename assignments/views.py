@@ -250,7 +250,7 @@ def showAssignment(request, assignmentId):
         assignment = Assignment.objects.get(id=assignmentId)
     except Question.DoesNotExist:
         return render(request, 'general/404.html', {
-            'message': 'Oppgave {} eksisterer ikke'.format(questionId)
+            'message': 'Øving {} eksisterer ikke'.format(assignmentId)
         }, status=404)
     return render(request, 'professor/assignmentView.html', {
         'assignment': assignment
