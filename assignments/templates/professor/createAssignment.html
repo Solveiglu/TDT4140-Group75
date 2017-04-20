@@ -1,0 +1,38 @@
+{% extends "home.html" %}
+
+{% block styles %}
+
+{% endblock %}
+
+{% block header %}
+    {% include 'components/header.html' %}
+{% endblock %}
+
+{% block content %}
+    <div class="col-sm-12 col-md-offset-1 col-md-10">
+        <a href="../..">
+        <button type="button" class="btn btn-success btn-lg" >Tilbake</button></a>
+        <h1>Create a new assignment</h1>
+        <form method="GET" action="{% url 'new-assignment' %}">
+            <select name="subject" onchange="this.form.submit()">
+                <option value="0">Choose subject</option>
+                {% for subject in subjects %}
+                    <option {% if subject.id == subjectId %} selected {% endif %}
+                            value="{{ subject.id }}">{{ subject.subjectName }}</option>
+                {% endfor %}
+            </select>
+        </form>
+        <a href="questions/new"><button class="btn btn-default" type="edit">New question</button></a>
+        <hr/>
+        {% if subjectId > 0 %}
+            <form method="POST" action="{% url 'new-assignment' %}">
+                {% csrf_token %}
+                {{ assignment_form.non_field_errors }}
+                {{ assignment_form.as_p }}
+                <center>
+                    <button class="btn btn-primary" type="submit">Submit</button>
+                </center>
+            </form>
+    </div>
+        {% endif %}
+{% endblock %}

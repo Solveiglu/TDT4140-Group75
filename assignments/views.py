@@ -14,10 +14,8 @@ from results.models import *
 import datetime
 from .models import Answer, Question, Assignment, Subject
 from django.views import generic
-
-
-
-
+from .models import Answer, Question, Assignment, Subject
+from django.views import generic
 def listQuestions(request):
     questions = Question.objects.all()
     return render(request, 'assignments/questionList.html', {
@@ -190,7 +188,7 @@ def createAssignment(request):
     if subjectId > 0:
         assignment_form.fields['questions'].queryset = Question.objects.filter(subject_id=subjectId)
 
-    return render(request, 'assignments/createAssignment.html', {
+    return render(request, 'professor/createAssignment.html', {
         'assignment_form': assignment_form,
         'subjects': subjects,
         'subjectId': subjectId
@@ -263,4 +261,38 @@ def viewAssignment(request, assignmentId):
 
     return render(request, 'assignments/assignment.html', {
         'assignment': assignment
+    })
+
+
+def showAssignment(request, assignmentId):
+
+    try:
+        assignment = Assignment.objects.get(id=assignmentId)
+    except Question.DoesNotExist:
+        return render(request, 'general/404.html', {
+            'message': 'Oppgave {} eksisterer ikke'.format(questionId)
+        }, status=404)
+    return render(request, 'professor/assignmentView.html', {
+        'assignment': assignment
+    })
+
+
+@login_required
+def editAssignment(request, assignmentId):
+
+    if assignmentId:
+        assignment = get_object_or_404(Assignment, pk=assignmentId)
+
+    else:
+        assignment = Assignment(owner=request.user)
+
+    form = AssignmentForm(request.POST or None, instance=assignment)
+
+    if request.POST and form.is_valid():
+        form.save()
+
+        return redirect('show-assignment', assignmentId)
+    return render(request, 'professor/editAssignment.html', {
+        'form': form,
+        'assignment_id': assignmentId,
     })
