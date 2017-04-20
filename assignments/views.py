@@ -15,9 +15,6 @@ from django.http import HttpResponseForbidden
 from .models import Answer, Question, Assignment, Subject
 from django.views import generic
 
-
-
-
 def listQuestions(request):
     questions = Question.objects.all()
     return render(request, 'assignments/questionList.html', {

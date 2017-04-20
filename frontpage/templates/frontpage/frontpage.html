@@ -10,12 +10,28 @@
 {% block header %}
     {% include "components/header.html" %}
 {% endblock %}
-
 {% block content %}
+<div class="container-fluid section popdownsubsection white-background servicesMoreInfo" id="active_test">
+    <div class="panel-group">
+        <div class="panel panel-default">
+            <div class="row">
+                <div class="col-sm-12 col-md-offset-1 col-md-5">
+                    <h3>   Ønsker du å lage egen test?</h3>
+                </div>
+                <div class="col-md-5">
+                    <div class="text-center">
+                        <a class="btn" href="{% url 'new-private-assignment' %}">
+                        <button type="button" class="btn btn-default btn-lg" > generer ny test</button></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
     {% for assignment in assignments %}
         {% include 'components/active.html' with currentAssignment=assignment %}
     {% endfor %}
+ <a class="btn2" href="{% url 'results' %}">
+
+
 {% endblock %}
-
-
-
