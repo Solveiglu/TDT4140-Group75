@@ -38,9 +38,45 @@ class QuestionTestCase(TestCase):
         question = Question.objects.get(id=1)
         url = reverse('answer', args=(question.id,))
         response = self.client.post(url, {'answer': 1})
-        self.assertIn('wrong', response.context['error_message'].lower())
+        self.assertIn('feil', response.context['error_message'].lower())
         response = self.client.post(url, {'answer': 2})
-        self.assertIn('correct', response.context['error_message'].lower())
+        self.assertIn('riktig', response.context['error_message'].lower())
         response = self.client.post(url, {'answer': 100})
         self.assertEqual(response.context['error_message'], "You didn't select an answer.")
 
+    def test_newQuestion(self):
+        # vanlig innsending av newQuestion
+        # ingen korrekte svar
+        # korrekt svar uten svarinnhold
+        # duplikate svar
+        pass
+
+    def test_editQuestion(self):
+        # endre et svaralternativ
+        # endre slik at ingen svaralternativer er riktige
+        # endre et spørsmål
+        pass
+
+    def test_deleteQuestion(self):
+        # slett et spørsmål
+        pass
+
+    def test_createAssignment(self):
+        # henter ut riktige spørsmål når man velger subject
+        # lage assignment
+        pass
+
+    def test_createPrivateAssignment(self):
+        # generere en assignment
+        # sjekke at det blir riktig antall spørsmål
+        # sjekke at den genererer fra riktig tema
+        pass
+
+    def test_viewAssignment(self):
+        pass
+
+    def test_showAssignment(self):
+        pass
+
+    def test_editAssignment(self):
+        pass

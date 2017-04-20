@@ -15,7 +15,6 @@ from agnitio import urls
 
 from .models import Answer, Question, Assignment, Subject
 from django.views import generic
-
 def listQuestions(request):
     questions = Question.objects.all()
     return render(request, 'assignments/questionList.html', {
@@ -251,7 +250,7 @@ def showAssignment(request, assignmentId):
         assignment = Assignment.objects.get(id=assignmentId)
     except Question.DoesNotExist:
         return render(request, 'general/404.html', {
-            'message': 'Oppgave {} eksisterer ikke'.format(questionId)
+            'message': 'Øving {} eksisterer ikke'.format(assignmentId)
         }, status=404)
     return render(request, 'professor/assignmentView.html', {
         'assignment': assignment
