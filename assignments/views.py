@@ -10,8 +10,11 @@ from django.forms import ValidationError
 from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse
 from django.views.generic import CreateView
+from results.models import *
+import datetime
+from .models import Answer, Question, Assignment, Subject
+from django.views import generic
 from django.http import HttpResponseForbidden
-
 from .models import Answer, Question, Assignment, Subject
 from django.views import generic
 def listQuestions(request):
@@ -165,7 +168,7 @@ def deleteQuestion(request, questionId):
 class AssignmentForm(ModelForm):
     class Meta:
         model = Assignment
-        fields = ['assignmentName', 'description', 'deadline', 'questions']
+        fields = ['assignmentName', 'description', 'deadline', 'questions','passingGrade']
         widgets = {
             'questions': CheckboxSelectMultiple()
         }
@@ -225,9 +228,16 @@ def createPrivateAssignment(request):
     })
 
 def viewAssignment(request, assignmentId):
+    assignment = Assignment.objects.get(id=assignmentId)
+    totalScore = 0
     if request.method == 'POST':
         print('hello post post')
         print(request.POST)
+        results = FinishedAssignment.objects.create(
+            user = request.user,
+            assignment = Assignment.objects.get(id=assignmentId),
+
+        )
         for key, answer_id in request.POST.items():
             if key.startswith('answer-'):
                 question_id = int(key.replace('answer-', ''))
@@ -235,10 +245,21 @@ def viewAssignment(request, assignmentId):
                 answer = Answer.objects.get(id=answer_id)
                 if answer not in question.answers.all():
                     raise ValidationError('Question and answer do not match')
-
+                else:
+                    results.answer.add(answer)
+        score = 0
+        total = 0
+        for answers in results.answer.all():
+            if answers.isCorrect == True:
+                score+=1
+            total +=1
+        totalScore=(score/total)*100
+        results.score = totalScore
+        if assignment.passingGrade < totalScore:
+            results.passed = True
+        results.save
         return redirect('results')
 
-    assignment = Assignment.objects.get(id=assignmentId)
     return render(request, 'assignments/assignment.html', {
         'assignment': assignment
     })

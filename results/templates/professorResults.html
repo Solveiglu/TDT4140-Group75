@@ -4,9 +4,15 @@
 {% block styles %}
 
 {% endblock %}
-
 {% block header %}
     {% include 'components/header.html' %}
+
+{% endblock %}
+{% block content %}
+{{ chart.as_html }}
+    {% for result in results %}
+        {% include 'components/proffesorResultsAktive.html' with currentAssignment=assignment %}
+    {% endfor %}
 {% endblock %}
 
 {% load static %}
@@ -28,5 +34,11 @@
         {% endif %}
     {% endfor %}
     </ul>
+{% endblock %}
+{% block content %}
+{{ chart.as_html }}
+    {% for result in results %}
+        {% include 'components/proffesorResultsAktive.html' with currentAssignment=assignment %}
+    {% endfor %}
 {% endblock %}
 
