@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from results.models import FinishedAssignment
+from results.models import QuestionResult, FinishedAssignment
 from django.contrib.auth.models import User
 from django.contrib.auth.models import Group, Permission
 from django.shortcuts import render, redirect
@@ -9,13 +9,12 @@ from django.shortcuts import render
 from graphos.renderers.yui import LineChart, BarChart, ColumnChart
 
 def results(request):
-
     temp = FinishedAssignment.objects.all()
     data = ['Øving', 'Ditt Resultat', 'Klassens Resultat']
-    scoreList = []
     if request.user.groups.filter(name="Professors").exists():
         return redirect('professorResults')
     else:
+
         tempFinishedAssignment = FinishedAssignment.objects.all()
         tempAssignment = Assignment.objects.all()
         data = ['Øving','Mitt resultat' 'Gruppens Resultat']
@@ -102,10 +101,15 @@ def professorResults(request):
             'chart': chart,
             'chart2': chart2,
         })
-
     if request.user.groups.filter(name="Students").exists():
         return redirect('results')
     else:
         return redirect('frontpage/profile')
 
+def listResults(request):
+    results = QuestionResult.objects.all()
+    user = request.user
+    return render(request, 'resultlist.html', {
+        'questionResult': results,
+    })
 

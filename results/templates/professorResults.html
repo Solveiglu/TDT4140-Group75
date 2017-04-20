@@ -1,3 +1,4 @@
+
 {% extends "home.html" %}
 
 {% block styles %}
@@ -5,15 +6,32 @@
 {% endblock %}
 {% block header %}
     {% include 'components/header.html' %}
-<<<<<<< HEAD
+
 {% endblock %}
 {% block content %}
 {{ chart.as_html }}
     {% for result in results %}
         {% include 'components/proffesorResultsAktive.html' with currentAssignment=assignment %}
     {% endfor %}
-=======
-{{ chart.as_html }} {{ chart2.as_html }}
->>>>>>> 9e7d8c22d8850d2d6b33b1c87959020d985ed544
 {% endblock %}
 
+{% load static %}
+<link rel="stylesheet" href="{% static "css/main.css" %}" type="text/css"/>
+
+{% block content %}
+    {{ chart.as_html }} {{ chart2.as_html }}
+    <h1> Alle resultater:</h1>
+    {{ user.get_username }}
+
+
+    <ul>
+    {% for questionResult in questionResult %}
+        {% if perms.professorperms %}
+        <li> <ul>{{questionResult.result}} {{questionResult.user}} {{questionResult.question.id}}</ul></li>
+
+        {% elif questionResult.user == request.user %}
+        <li> <ul>{{questionResult.result}} {{questionResult.question.id}}</ul></li>
+        {% endif %}
+    {% endfor %}
+    </ul>
+{% endblock %}
