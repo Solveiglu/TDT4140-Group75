@@ -9,8 +9,7 @@ from django.contrib.auth.models import User
 def index(request):
 
     subjects = Subject.objects.all()
-    assignments = Assignment.objects.filter(Q(owner=None) | Q(owner=request.user)).all()
-    #user = User.objects.all()
+    assignments = Assignment.objects.filter(Q(owner=None) | Q(owner=request.user)).all().order_by('deadline')
     if request.user.groups.filter(name="Professors").exists():
         return render(request, 'frontpage/professor_front.html', {
             'assignments': assignments
