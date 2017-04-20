@@ -13,7 +13,7 @@
                     </div>
                     <div class="col-md-6">
                         <h2>Frist:</h2>
-                        <h5>{{ currentAssignment.deadline }}</h5>
+                        <h5>{%if currentAssignment.deadline%}{{ currentAssignment.deadline }} {%endif%}</h5>
                     </div>
                 </div>
             </div>

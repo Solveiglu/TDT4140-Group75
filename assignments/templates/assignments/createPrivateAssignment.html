@@ -9,11 +9,15 @@
 {% endblock %}
 
 {% block content %}
-    <h1>Generate a new assignment</h1>
-    <form method="POST" action="{% url 'new-private-assignment' %}">
-        {% csrf_token %}
-        {{ private_assignment_form.non_field_errors }}
-        {{ private_assignment_form.as_p }}
-        <button type="submit">Submit</button>
-    </form>
+    <div class="col-sm-12 col-md-offset-1 col-md-10">
+        <h1>Lag ny test</h1>
+        <form method="POST" action="{% url 'new-private-assignment' %}">
+            {% csrf_token %}
+            {{ private_assignment_form.non_field_errors }}
+            {{ private_assignment_form.as_p }}
+            <center>
+                <button class="btn btn-primary" type="submit">Submit</button>
+            </center>
+        </form>
+    </div>
 {% endblock %}
