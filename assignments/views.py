@@ -10,10 +10,15 @@ from django.forms import ValidationError
 from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse
 from django.views.generic import CreateView
+<<<<<<< HEAD
 from results.models import *
 import datetime
 from .models import Answer, Question, Assignment, Subject
 from django.views import generic
+=======
+from django.http import HttpResponseForbidden
+
+>>>>>>> 2928204a817acea99a24bfee14182f12ba21ab1b
 from .models import Answer, Question, Assignment, Subject
 from django.views import generic
 def listQuestions(request):
@@ -167,7 +172,11 @@ def deleteQuestion(request, questionId):
 class AssignmentForm(ModelForm):
     class Meta:
         model = Assignment
+<<<<<<< HEAD
         fields = ['assignmentName', 'description', 'deadline', 'questions','passingGrade']
+=======
+        fields = ['assignmentName', 'description', 'deadline', 'questions']
+>>>>>>> 2928204a817acea99a24bfee14182f12ba21ab1b
         widgets = {
             'questions': CheckboxSelectMultiple()
         }
@@ -270,7 +279,7 @@ def showAssignment(request, assignmentId):
         assignment = Assignment.objects.get(id=assignmentId)
     except Question.DoesNotExist:
         return render(request, 'general/404.html', {
-            'message': 'Oppgave {} eksisterer ikke'.format(questionId)
+            'message': 'Øving {} eksisterer ikke'.format(assignmentId)
         }, status=404)
     return render(request, 'professor/assignmentView.html', {
         'assignment': assignment
