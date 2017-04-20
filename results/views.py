@@ -14,10 +14,7 @@ def results(request):
     if request.user.groups.filter(name="Professors").exists():
         return redirect('professorResults')
     else:
-<<<<<<< HEAD
-=======
 
->>>>>>> resultsFix
         tempFinishedAssignment = FinishedAssignment.objects.all()
         tempAssignment = Assignment.objects.all()
         data = ['Øving','Mitt resultat' 'Gruppens Resultat']
@@ -29,10 +26,6 @@ def results(request):
                 scoreTotal = 0
                 totalTotal = 0
                 answerScore = 0
-<<<<<<< HEAD
-                scoreList = []
-=======
->>>>>>> resultsFix
 
 
                 for y in tempFinishedAssignment:
@@ -102,12 +95,6 @@ def professorResults(request):
         studentScore = SimpleDataSource(data=data)
         chart = LineChart(studentScore)
         chart2 = BarChart(studentScore)
-<<<<<<< HEAD
-        passedPercentage = 0
-        for assignment in tempFinishedAssignment:
-            x
-=======
->>>>>>> resultsFix
         return render(request, 'professorResults.html', {
             'results': tempAssignment,
             'score': scoreList,
@@ -119,17 +106,7 @@ def professorResults(request):
     else:
         return redirect('frontpage/profile')
 
-<<<<<<< HEAD
     if request.user.groups.filter(name="Students").exists():
         return redirect('results')
     else:
         return redirect('frontpage/profile')
-=======
-def listResults(request):
-    results = QuestionResult.objects.all()
-    user = request.user
-    return render(request, 'resultlist.html', {
-        'questionResult': results,
-    })
-
->>>>>>> resultsFix
