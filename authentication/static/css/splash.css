@@ -12,3 +12,7 @@ background-size: cover;
     justify-content: center;
     margin-top: 10%;
 }
+
+#loginForm {
+    margin-top: 10%;
+}
