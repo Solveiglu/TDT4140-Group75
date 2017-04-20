@@ -26,7 +26,7 @@ class Migration(migrations.Migration):
             ],
         ),
         migrations.RemoveField(
-            model_name='Finishedassignment',
+            model_name='finishedassignment',
             name='user',
         ),
     ]
