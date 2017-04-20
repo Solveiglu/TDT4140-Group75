@@ -1,7 +1,9 @@
 from django.shortcuts import render
 
 import sys
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import authenticate
+from django.contrib.auth import login as django_login
+
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
@@ -9,8 +11,8 @@ from django.contrib.auth.models import Group, Permission
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
-new_group, created = Group.objects.get_or_create(name='Students')
-new_group, created = Group.objects.get_or_create(name='Professor')
+#new_group, created = Group.objects.get_or_create(name='Students')
+#new_group, created = Group.objects.get_or_create(name='Professors')
 def signup(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
@@ -23,9 +25,9 @@ def signup(request):
 #            lastName = form.cleaned_data.get('lastname')
 #            bio = form.cleaned_data.get('bio')
             user = authenticate(username=username, password=rawPassword)
-            g = Group.objects.get(name='Students')
-            g.user_set.add(user)
-            login(request, user)
+            g = Group.objects.get_or_create(name='Students')
+            user.groups.add(g)
+            django_login(request, user)
             return redirect('/')
     else:
         form = UserCreationForm()
