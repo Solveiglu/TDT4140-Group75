@@ -173,12 +173,6 @@ class AssignmentForm(ModelForm):
         }
 
 
-class DeleteAssignmentForm(ModelForm):
-    class Meta:
-        model = Assignment
-        fields = ['assignmentName', 'description', 'deadline', 'questions']
-
-
 def createAssignment(request):
     if request.method == 'POST':
         assignment_form = AssignmentForm(request.POST, request.FILES, prefix='assignment')
@@ -289,14 +283,5 @@ def editAssignment(request, assignmentId):
 def deleteAssignment(request, assignmentId):
     instance = Assignment.objects.get(id=assignmentId)
     print(instance)
-    if assignmentId:
-        assignment = get_object_or_404(Assignment, pk=assignmentId)
-
-    else:
-        assignment = Assignment(owner=request.user)
-    form = AssignmentForm(request.POST or None, instance=assignment)
-    return render(request, 'professor/editAssignment.html', {
-        'form': form,
-        'assignment_id': assignmentId,
-    })
-    #instance.delete()
+    instance.delete()
+    return redirect('/')
