@@ -17,7 +17,7 @@
                 </div>
                 <div class="col-md-5">
                     <div class="text-center">
-                        <a class="btn" href="assignments/new-private">
+                        <a class="btn" href="{% url 'new-private-assignment' %}">
                         <button type="button" class="btn btn-default btn-lg" > generer ny test</button></a>
                     </div>
                 </div>
@@ -28,7 +28,7 @@
     {% for assignment in assignments %}
         {% include 'components/active.html' with currentAssignment=assignment %}
     {% endfor %}
- <a class="btn2" href="results/results">
+ <a class="btn2" href="{% url 'results' %}">
 
 
 {% endblock %}
