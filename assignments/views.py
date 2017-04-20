@@ -282,6 +282,6 @@ def editAssignment(request, assignmentId):
 @login_required
 def deleteAssignment(request, assignmentId):
     instance = Assignment.objects.get(id=assignmentId)
-    #print(instance)
+    print(instance)
     instance.delete()
     return redirect('/')
