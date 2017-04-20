@@ -7,12 +7,35 @@
 {% block header %}
     {% include "components/header.html" %}
 {% endblock %}
-
 {% block content %}
+<div class="container-fluid section popdownsubsection white-background servicesMoreInfo" id="active_test">
+    <div class="panel-group">
+        <div class="panel panel-default">
+                <div class="row">
+                    <div class="col-sm-12 col-md-6">
+
+                        <h3>   Ønsker du å lage en ny test?:</h3>
+
+                    </div>
+                    <div class="col-md-6">
+                        <div class="text-center">
+                    <a class="btn" href="assignments/new">
+                    <button type="button" class="btn btn-default btn-lg" > generer ny test</button></a>
+                </div>
+
+                    </div>
+                </div>
+            </div>
+            <div id="{{ currentAssignment.id }}demo" class="panel-body collapse">
+                <div class="col-sm-12 col-md-12">
+            </div>
+        </div>
+    </div>
+</div>
+{{ assignment}}
     {% for assignment in assignments %}
         {% include 'components/active.html' with currentAssignment=assignment %}
     {% endfor %}
+
+
 {% endblock %}
-
-
-
