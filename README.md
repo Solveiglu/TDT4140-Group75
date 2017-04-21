@@ -46,4 +46,6 @@ git add -A (or spesific files)
 git status (check that all files are staged)
 git commit -m "message"
 git push origin <branch-name>
+
+All unit tests are pushed straight to master.
 ```

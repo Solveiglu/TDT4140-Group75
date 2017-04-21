@@ -1,17 +1,15 @@
 {% extends "home.html" %}
 
 {% block styles %}
-
+    <link rel="stylesheet" type="text/css" href="static/css/splash.css">
 {% endblock %}
 
 {% block header %}
-    {% include "components/header.html" %}
+
 {% endblock %}
 
 {% block content %}
-<div class="container">
-    <div class="row">
-        <div class="col-sm-offset-2 col-sm-6 col-md-8 col-md-offset-2 ">
+        <div id='form' class="col-sm-offset-2 col-sm-6 col-md-8 col-md-offset-2 ">
             <div class="login-panel panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title">Sign up</h3>
@@ -30,9 +28,7 @@
                             </center>
                         </p>
                     </form>
-                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
 {% endblock %}

@@ -10,7 +10,8 @@ from django.forms import ValidationError
 from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse
 from django.views.generic import CreateView
-from django.http import HttpResponseForbidden
+from django.http import HttpResponseForbidden, HttpResponseRedirect
+from agnitio import urls
 
 from .models import Answer, Question, Assignment, Subject
 from django.views import generic
@@ -176,7 +177,7 @@ def createAssignment(request):
         assignment_form = AssignmentForm(request.POST, request.FILES, prefix='assignment')
         if assignment_form.is_valid():
             assignment = assignment_form.save()
-            return redirect('assignment', assignment.id)
+            return redirect('show-assignment', assignment.id)
     else:
         assignment_form = AssignmentForm(prefix='assignment')
 
@@ -215,7 +216,7 @@ def createPrivateAssignment(request):
 
             print(assignment_name, number_of_questions, subject, assignment.id, assignment)
 
-            return redirect('assignment', assignment.id)
+            return redirect('index')
     else:
         private_assignment_form = PrivateAssignmentForm()
 
@@ -259,12 +260,12 @@ def showAssignment(request, assignmentId):
 @login_required
 def editAssignment(request, assignmentId):
 
+
     if assignmentId:
         assignment = get_object_or_404(Assignment, pk=assignmentId)
 
     else:
         assignment = Assignment(owner=request.user)
-
     form = AssignmentForm(request.POST or None, instance=assignment)
 
     if request.POST and form.is_valid():
@@ -275,3 +276,11 @@ def editAssignment(request, assignmentId):
         'form': form,
         'assignment_id': assignmentId,
     })
+
+
+@login_required
+def deleteAssignment(request, assignmentId):
+    instance = Assignment.objects.get(id=assignmentId)
+    print(instance)
+    instance.delete()
+    return redirect('/')
