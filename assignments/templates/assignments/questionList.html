@@ -26,11 +26,15 @@
         </div>
         <br/>
         <div class="row">
-            <ul>
-            {% for question in questions %}
-                <li> <a href="{% url 'show-question' question.id %}"> {{ question.questionText }} </a> </li>
+            {% for subject in subjects %}
+                <h3> {{ subject.subjectName }} </h3>
+                <ol>
+                {% for question in subject.questions.all %}
+                    <li> <a href="{% url 'show-question' question.id %}"> {{ question.questionText }} </a> </li>
+                {% endfor %}
+                </ol>
+                <hr/>
             {% endfor %}
-             </ul>
         </div>
 
 
