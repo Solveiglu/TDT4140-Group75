@@ -14,30 +14,20 @@
 
 {% block content %}
     <div class="col-sm-offset-1 ">
-        <h2>{{ question.questionText }}</h2>
-        <p>{{ question.subject }}</p>
-        <form action="{% url 'answer' question.id %}" method="post">
-        {% csrf_token %}
+        <h3> {{ question.questionText }} </h3>
+        <h5> {{ question.subject }}</h5>
+        <ol>
         {% for answer in question.answers.all %}
-            <input type="radio" name="answer" id="answer{{ forloop.counter }}" value="{{ answer.id }}" />
-            <label for="answer{{ forloop.counter }}">{{ answer.answerText }}</label><br />
+            {% if answer.isCorrect is True %}
+                <li> {{ answer.answerText }} [Korrekt svar] </li>
+            {% else %}
+                <li> {{ answer.answerText }} </li>
+            {% endif %}
         {% endfor %}
-        <br/>
-        <input class="btn btn-primary" type="submit" value="Submit" />
-        </form>
-
-        {% if question.next_id %}
-            <form action="{% url 'show-question' question.next_id %}">
-            <input class="btn btn-success" type="submit" value="Next" />
-            </form>
-        {% else %}
-            <form action="{% url 'list-questions' %}">
-            <input class="btn btn-success" type="submit" value="Close" />
-            </form>
-        {%  endif %}
+        </ol>
+        <hr/>
         <form action="{% url 'edit-question' question.id %}">
-        <input class="btn btn-default" type="submit" value="Edit" />
+            <input class="btn btn-default" type="submit" value="Endre spørsmål" />
         </form>
-        {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
     </div>
 {% endblock %}

@@ -16,9 +16,9 @@ from agnitio import urls
 from .models import Answer, Question, Assignment, Subject
 from django.views import generic
 def listQuestions(request):
-    questions = Question.objects.all()
+    subjects = Subject.objects.all()
     return render(request, 'assignments/questionList.html', {
-        'questions': questions
+        'subjects': subjects
     })
 
 def answer(request, questionId):

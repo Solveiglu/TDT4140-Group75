@@ -11,6 +11,11 @@
 {% block content %}
     <div class="col-sm-12 col-md-offset-1 col-md-10">
         <h1>Lag ny test</h1>
+        <hr/>
+        <p>Som student kan du generere dine egne tester basert på ønsket tema. Fyll inn navn på testen,
+            ønsket antall spørsmål og hvilket tema du vil jobbe med. Testen og resultatet er kun tilgjengelig
+            for deg. Du kan besvare testen når du selv ønsker det.</p>
+        <hr/>
         <form method="POST" action="{% url 'new-private-assignment' %}">
             {% csrf_token %}
             {{ private_assignment_form.non_field_errors }}
