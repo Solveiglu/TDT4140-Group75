@@ -1,7 +1,7 @@
 {% extends "home.html" %}
 
 {% block styles %}
-
+    <link rel="stylesheet" type="text/css" href="static/css/splash.css">
 {% endblock %}
 
 {% block header %}
@@ -9,9 +9,7 @@
 {% endblock %}
 
 {% block content %}
-<div class="container">
-    <div class="row">
-        <div class="col-sm-offset-2 col-sm-6 col-md-4 col-md-offset-4 ">
+        <div id='loginForm' class="col-sm-offset-2 col-sm-6 col-md-4 col-md-offset-4 ">
             {% if form.errors %}
                 <p>Your username and password didn't match. Please try again.</p>
             {% endif %}
@@ -35,12 +33,12 @@
                             </table>
                         </p>
                         <p class="bs-component">
-                            <center>
-                                <input class="btn btn-primary btn-md" type="submit" value="login" />
-                            </center>
-                        </p>
+                        <center>
+                        <input class="btn btn-primary btn-md" type="submit" value="login" />
+                        </center>
                         <input type="hidden" name="next" value="{{ next }}" />
                     </form>
+
                 </div>
                 <div class="panel-footer">
                     <div class="text-center">
@@ -50,7 +48,7 @@
                 </div>
             </div>
         </div>
-    </div>
-</div>
+
+
 
 {% endblock %}

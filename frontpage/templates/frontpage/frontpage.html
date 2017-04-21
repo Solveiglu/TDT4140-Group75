@@ -13,7 +13,7 @@
         <div class="panel panel-default">
             <div class="row">
                 <div class="col-sm-12 col-md-offset-1 col-md-5">
-                    <h3>   Ønsker du å lage egen test?</h3>
+                    <h3>Ønsker du å lage egen test?</h3>
                 </div>
                 <div class="col-md-5">
                     <div class="text-center">
@@ -25,9 +25,18 @@
         </div>
     </div>
 </div>
-    {% for assignment in assignments %}
-        {% include 'components/active.html' with currentAssignment=assignment %}
+    {% for a_assignment in active_assignments %}
+        {% include 'components/active.html' with currentAssignment=a_assignment %}
     {% endfor %}
+    {% if size > 0 %}
+        <hr>
+        <center>
+        <h3>Fristen er ute</h3>
+        </center>
+        {% for e_assignment in expired_assignments %}
+            {% include 'components/active.html' with currentAssignment=e_assignment %}
+        {% endfor %}
+    {% endif %}
  <a class="btn2" href="{% url 'results' %}">
 
 
