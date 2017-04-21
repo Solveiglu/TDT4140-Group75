@@ -177,7 +177,7 @@ def createAssignment(request):
         assignment_form = AssignmentForm(request.POST, request.FILES, prefix='assignment')
         if assignment_form.is_valid():
             assignment = assignment_form.save()
-            return redirect('assignment', assignment.id)
+            return redirect('show-assignment', assignment.id)
     else:
         assignment_form = AssignmentForm(prefix='assignment')
 
