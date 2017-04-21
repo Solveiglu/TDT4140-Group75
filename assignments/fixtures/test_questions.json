@@ -7,6 +7,13 @@
     }
   },
   {
+    "model": "assignments.Subject",
+    "pk": 2,
+    "fields": {
+      "subjectName": "Testemne 2"
+    }
+  },
+  {
     "model": "assignments.Question",
     "pk": 1,
     "fields": {
@@ -26,6 +33,14 @@
     "fields": {
       "questionText": "Hva er 3+3?",
       "subject": 1
+    }
+  },
+  {
+    "model": "assignments.Question",
+    "pk": 6,
+    "fields": {
+      "questionText": "Test?",
+      "subject": 2
     }
   },
   {

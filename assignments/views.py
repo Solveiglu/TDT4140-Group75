@@ -171,7 +171,6 @@ class AssignmentForm(ModelForm):
         }
 
 
-
 def createAssignment(request):
     if request.method == 'POST':
         assignment_form = AssignmentForm(request.POST, request.FILES, prefix='assignment')

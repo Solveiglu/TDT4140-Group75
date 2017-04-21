@@ -45,13 +45,7 @@ class Answer(models.Model):
     isCorrect = models.BooleanField(null=False)
 
     # fremmednøkkel som peker på Question
-    assignment = models.ForeignKey(Assignment, null=True, related_name='AnsweredInAssignment')
     question = models.ForeignKey(Question, related_name='answers')
-
-    def save(self):
-        if self.assignment is None:  # Set default reference
-            self.assignment = Assignment.objects.get(id=1)
-        super(Answer, self).save()
 
     def __str__(self):
         return self.answerText
