@@ -23,7 +23,8 @@ urlpatterns = [
 
     url(r'^(?P<assignmentId>[0-9]+)$', views.viewAssignment, name='assignment'),
     url(r'^show/(?P<assignmentId>[0-9]+)', views.showAssignment, name='show-assignment'),
-    url(r'^(?P<assignmentId>[0-9]+)/edit', views.editAssignment, name='edit-assignment')
+    url(r'^(?P<assignmentId>[0-9]+)/edit', views.editAssignment, name='edit-assignment'),
+    url(r'^(?P<assignmentId>[0-9]+)/delete', views.deleteAssignment, name='delete-assignment'),
 ]
 
 
