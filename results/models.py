@@ -13,7 +13,7 @@ class FinishedAssignment(models.Model):
     def score(self):
         score = 0
         total = 0
-        for answers in self.answer.all():
+        for answer in self.answers.all():
             total += 1
             if answers.isCorrect:
                 score += 1
