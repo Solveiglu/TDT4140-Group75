@@ -16,6 +16,9 @@
     <div class="col-sm-offset-1 ">
         <h2>{{ assignment.assignmentName }}</h2>
         <p>{{ assignment.questions.first.subject }} - {{ assignment.questions.count }} spørsmål</p>
+        {% if error %}
+            <b style="color:red;">{{ error }}</b>
+        {% endif %}
         <hr/>
         <form method="POST" onsubmit="return confirm('Er du sikker på at du vil sende inn svarene?');" action="{% url 'assignment' assignment.id %}">
             {% csrf_token %}
