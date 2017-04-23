@@ -163,7 +163,7 @@ def deleteQuestion(request, questionId):
 class AssignmentForm(ModelForm):
     class Meta:
         model = Assignment
-        fields = ['assignmentName', 'description', 'deadline', 'questions', 'passingGrade']
+        fields = ['assignmentName', 'description', 'deadline', 'passingGrade', 'questions']
         labels = {
             'assignmentName': _('Navn'),
             'description': _('Beskrivelse'),
