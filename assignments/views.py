@@ -1,9 +1,6 @@
 import random
 
 from django.contrib.auth.decorators import login_required
-from django.db.models import TextField
-from django.forms import BaseFormSet
-from django.forms import BaseModelFormSet
 from django.forms import *
 from django.forms import ModelForm, Textarea, modelformset_factory
 from django.forms import ValidationError
@@ -15,7 +12,7 @@ from django.http import HttpResponseForbidden, HttpResponseRedirect
 from agnitio import urls
 
 from .models import Answer, Question, Assignment, Subject
-from django.views import generic
+
 def listQuestions(request):
     subjects = Subject.objects.all()
     return render(request, 'assignments/questionList.html', {
@@ -46,12 +43,7 @@ def answer(request, questionId):
         })
 
 def showQuestion(request, questionId):
-    try:
-        question = Question.objects.get(id=questionId)
-    except Question.DoesNotExist:
-        return render(request, 'general/404.html', {
-            'message': 'Spørsmål {} eksisterer ikke'.format(questionId)
-        }, status=404)
+    question = get_object_or_404(Question, id=questionId)
 
     return render(request, 'assignments/showQuestion.html', {'question': question})
 
@@ -230,9 +222,7 @@ def createPrivateAssignment(request):
             assignment.save()
             assignment.questions=questions
 
-            print(assignment_name, number_of_questions, subject, assignment.id, assignment)
-
-            return redirect('index')
+            return redirect('assignment', assignment.id)
     else:
         private_assignment_form = PrivateAssignmentForm()
 
@@ -241,33 +231,27 @@ def createPrivateAssignment(request):
     })
 
 def viewAssignment(request, assignmentId):
+    assignment = Assignment.objects.get(id=assignmentId)
+
     if request.method == 'POST':
-        print('hello post post')
-        print(request.POST)
         for key, answer_id in request.POST.items():
             if key.startswith('answer-'):
                 question_id = int(key.replace('answer-', ''))
                 question = Question.objects.get(id=question_id)
+                if question not in assignment.questions.all():
+                    raise ValidationError('Question not in assignment')
                 answer = Answer.objects.get(id=answer_id)
                 if answer not in question.answers.all():
                     raise ValidationError('Question and answer do not match')
-
         return redirect('results')
-
-    assignment = Assignment.objects.get(id=assignmentId)
     return render(request, 'assignments/assignment.html', {
         'assignment': assignment
     })
 
 
 def showAssignment(request, assignmentId):
+    assignment = get_object_or_404(Assignment, id=assignmentId)
 
-    try:
-        assignment = Assignment.objects.get(id=assignmentId)
-    except Question.DoesNotExist:
-        return render(request, 'general/404.html', {
-            'message': 'Øving {} eksisterer ikke'.format(assignmentId)
-        }, status=404)
     return render(request, 'professor/assignmentView.html', {
         'assignment': assignment
     })
@@ -276,17 +260,11 @@ def showAssignment(request, assignmentId):
 @login_required
 def editAssignment(request, assignmentId):
 
-
-    if assignmentId:
-        assignment = get_object_or_404(Assignment, pk=assignmentId)
-
-    else:
-        assignment = Assignment(owner=request.user)
+    assignment = get_object_or_404(Assignment, pk=assignmentId)
     form = AssignmentForm(request.POST or None, instance=assignment)
 
     if request.POST and form.is_valid():
         form.save()
-
         return redirect('show-assignment', assignmentId)
     return render(request, 'professor/editAssignment.html', {
         'form': form,
@@ -297,6 +275,5 @@ def editAssignment(request, assignmentId):
 @login_required
 def deleteAssignment(request, assignmentId):
     instance = Assignment.objects.get(id=assignmentId)
-    print(instance)
     instance.delete()
-    return redirect('/')
+    return redirect('index')

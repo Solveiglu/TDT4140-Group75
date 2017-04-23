@@ -67,5 +67,45 @@
       "isCorrect": false,
       "question": 1
     }
+  },{
+    "model": "assignments.Answer",
+    "pk": 4,
+    "fields": {
+      "answerText": "test1",
+      "isCorrect": true,
+      "question": 2
+    }
+  },{
+    "model": "assignments.Answer",
+    "pk": 5,
+    "fields": {
+      "answerText": "test2",
+      "isCorrect": false,
+      "question": 2
+    }
+  },{
+    "model": "assignments.Answer",
+    "pk": 6,
+    "fields": {
+      "answerText": "correct",
+      "isCorrect": true,
+      "question": 5
+    }
+  },{
+    "model": "assignments.Answer",
+    "pk": 7,
+    "fields": {
+      "answerText": "correct 2",
+      "isCorrect": true,
+      "question": 6
+    }
+  },{
+    "model": "assignments.Assignment",
+    "pk": 1,
+    "fields": {
+      "assignmentName": "TestOving",
+      "questions": [1,2],
+      "description": ""
+    }
   }
 ]
