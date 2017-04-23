@@ -5,7 +5,14 @@
 {% endblock %}
 
 {% block header %}
-
+{% load static %}
+<div id="headerBox" class="container-fluid">
+    <div class="row">
+        <div id="logoContainer" class="col-xs-offset-0 col-xs-9 col-sm-offset-1 col-sm-7 col-md-offset-1 col-md-5">
+            <a href="{% url 'index' %}"><img id="logo" src="{% static "img/logo.png" %}" alt="home"></a>
+        </div>
+    </div>
+</div>
 {% endblock %}
 
 {% block content %}
@@ -24,7 +31,7 @@
                         </p>
                         <p class="bs-component">
                             <center>
-                                <button class="btn btn-primary btn-md" type="submit">Login</button>
+                                <button class="btn btn-primary btn-md" type="submit">Logg inn</button>
                             </center>
                         </p>
                     </form>
