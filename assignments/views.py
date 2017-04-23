@@ -163,17 +163,14 @@ def deleteQuestion(request, questionId):
 class AssignmentForm(ModelForm):
     class Meta:
         model = Assignment
-<<<<<<< HEAD
         fields = ['assignmentName', 'description', 'deadline', 'questions', 'passingGrade']
-=======
-        fields = ['assignmentName', 'description', 'deadline', 'questions']
         labels = {
             'assignmentName': _('Navn'),
             'description': _('Beskrivelse'),
             'deadline': _('Leveringsfrist'),
-            'questions': _('Spørsmål')
+            'questions': _('Spørsmål'),
+            'passingGrade': _('Beståttprosent')
         }
->>>>>>> master
         widgets = {
             'questions': CheckboxSelectMultiple(),
             'description': Textarea(attrs={'cols': 60, 'rows': 4})
