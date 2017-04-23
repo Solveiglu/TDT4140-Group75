@@ -7,15 +7,15 @@ from django.db import models
 class FinishedAssignment(models.Model):
     user = models.ForeignKey(to=User, related_name="results", blank=True, null=True)
     assignment = models.ForeignKey(assignments.models.Assignment, related_name='assignment')
-    answer = models.ManyToManyField(assignments.models.Answer, related_name='answersToAssignment')
+    s = models.ManyToManyField(assignments.models.Answer, related_name='answersToAssignment')
 
     @property
     def score(self):
         score = 0
         total = 0
-        for answer in self.answer.all():
+        for answers in self.answer.all():
             total += 1
-            if answer.isCorrect:
+            if answers.isCorrect:
                 score += 1
         return (score/total)*100
 

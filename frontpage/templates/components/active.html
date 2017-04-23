@@ -12,8 +12,9 @@
                         <h5>{{ currentAssignment.questions.first.subject }}</h5>
                     </div>
                     <div class="col-md-6">
+                        {% if not assignment.user%}
                         <h2>Frist:</h2>
-                        <h5>{%if currentAssignment.deadline%}{{ currentAssignment.deadline }} {%endif%}</h5>
+                        <h5>{%if currentAssignment.deadline%}{{ currentAssignment.deadline }} {%endif%}</h5> {%endif%}
                     </div>
                 </div>
             </div>
