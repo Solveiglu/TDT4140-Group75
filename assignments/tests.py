@@ -1,15 +1,19 @@
 import datetime
+
+from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
 from django.test import TestCase
 from django.core.urlresolvers import resolve
 from django.urls import reverse
+from django.utils import timezone
 
-from assignments.models import Question, Answer, Subject
+from assignments.models import Question, Answer, Subject, Assignment
 from assignments.views import listQuestions, showQuestion
 # Create your tests here.
 
 class QuestionTestCase(TestCase):
 
-    fixtures = ['test_questions.json']
+    fixtures = ['test_users.json', 'test_questions.json']
 
     def test_urls(self):
         self.assertEqual(resolve('/assignments/questions').func, listQuestions)
@@ -18,7 +22,7 @@ class QuestionTestCase(TestCase):
         url = reverse('list-questions')
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
-        self.assertListEqual(list(response.context['questions']), list(Question.objects.all()))
+        self.assertListEqual(list(response.context['subjects']), list(Subject.objects.all()))
 
     def test_showQuestion_view(self):
         question = Question.objects.first()
@@ -275,20 +279,112 @@ class QuestionTestCase(TestCase):
         assignment = response.context['assignment']
         self.assertEqual(assignment.assignmentName, 'OvingTest')
         self.assertEqual(assignment.description, 'Kul test')
-        self.assertEqual(assignment.deadline, datetime.datetime(2017,5,21,23,59,00, tzinfo=datetime.timezone.utc))
-        print(assignment.questions.all())
 
-    def test_createPrivateAssignment(self):
+    def test_createPrivateAssignment_questions_more_than_max(self):
         # generere en assignment
-        # sjekke at det blir riktig antall spørsmål
-        # sjekke at den genererer fra riktig tema
-        pass
+        self.client.force_login(User.objects.first())
+        url = reverse('new-private-assignment')
+        response = self.client.post(url, {
+            'assignment_name': 'OvingTest1',
+            'number_of_questions': 8,
+            'subject': 1
+        }, follow=True)
+        self.assertEqual(response.status_code, 200)
+        assignment = response.context['assignment']
+        self.assertEqual(assignment.assignmentName, 'OvingTest1')
+        for question in assignment.questions.all():
+            self.assertEqual(question.subject.id, 1)
+        subject_number_of_questions = assignment.questions.first().subject.questions.count()
+        correct_number_of_questions = min([8, subject_number_of_questions])
+        self.assertEqual(assignment.questions.count(), correct_number_of_questions)
 
-    def test_viewAssignment(self):
-        pass
+    def test_createPrivateAssignment_questions_less_than_max(self):
+        # generere en assignment
+        self.client.force_login(User.objects.first())
+        url = reverse('new-private-assignment')
+        response = self.client.post(url, {
+            'assignment_name': 'OvingTest1',
+            'number_of_questions': 2,
+            'subject': 1
+        }, follow=True)
+        assignment = response.context['assignment']
+        subject_number_of_questions = assignment.questions.first().subject.questions.count()
+        correct_number_of_questions = min([2, subject_number_of_questions])
+        self.assertEqual(assignment.questions.count(), correct_number_of_questions)
+
+    def test_answerAssignment(self):
+        assignment = Assignment.objects.first()
+        questions = assignment.questions.all()
+        post_body = {}
+        for question in questions:
+            correct_answer = question.answers.filter(isCorrect=True).first()
+            post_body['answer-{}'.format(question.id)] = correct_answer.id
+
+        url = reverse('assignment', args=(assignment.id,))
+        response = self.client.post(url, post_body)
+        self.assertRedirects(response, reverse('results'))
+
+    def test_answerAssignment_with_invalid_question(self):
+        assignment = Assignment.objects.first()
+        question = Question.objects.exclude(assignment=assignment).first()
+        correct_answer = question.answers.filter(isCorrect=True).first()
+
+        url = reverse('assignment', args=(assignment.id,))
+        with self.assertRaises(ValidationError):
+            self.client.post(url, {
+                'answer-{}'.format(question.id): correct_answer.id
+            })
+
+    def test_answerAssignment_with_invalid_answer_for_question(self):
+        assignment = Assignment.objects.first()
+        question = assignment.questions.first()
+        invalid_answer = Answer.objects.exclude(question=question).first()
+
+        url = reverse('assignment', args=(assignment.id,))
+        with self.assertRaises(ValidationError):
+            self.client.post(url, {
+                'answer-{}'.format(question.id): invalid_answer.id
+            })
+
 
     def test_showAssignment(self):
-        pass
+        assignment = Assignment.objects.first()
+        url = reverse('show-assignment', args=(assignment.id,))
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context['assignment'], assignment)
+
+        url = reverse('show-assignment', args=(999999,))
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 404)
 
     def test_editAssignment(self):
-        pass
+        self.client.force_login(User.objects.first())
+        assignment = Assignment.objects.first()
+        assignment_id = assignment.id
+        url = reverse('edit-assignment', args=(assignment.id,))
+        response = self.client.post(url, {
+            'assignmentName': 'Heisann',
+            'description': 'Kul test',
+            'deadline': '2017-05-21 23:59:00',
+            'questions': [1, 2, 5]
+        }, follow=True)
+        self.assertEqual(response.status_code, 200)
+        assignment = response.context['assignment']
+        self.assertEqual(assignment.assignmentName, 'Heisann')
+        self.assertEqual(assignment.description, 'Kul test')
+        self.assertSetEqual(
+            {question.id for question in assignment.questions.all()},
+            {1, 2, 5}
+        )
+        self.assertEqual(assignment.id, assignment_id)
+
+
+    def test_deleteAssignment(self):
+        self.client.force_login(User.objects.first())
+        assignment = Assignment.objects.first()
+        url = reverse('delete-assignment', args=(assignment.id,))
+        response = self.client.post(url)
+        self.assertRedirects(response, reverse('index'))
+        with self.assertRaises(Assignment.DoesNotExist):
+            Assignment.objects.get(id=assignment.id)
