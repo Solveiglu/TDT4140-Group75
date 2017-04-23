@@ -31,7 +31,7 @@ def results(request):
 
                 for y in tempFinishedAssignment:
                     if y.assignment.assignmentName == x.assignmentName:
-                        allAnswersTemp = y.answer.all()
+                        allAnswersTemp = y.answers.all()
                         for i in allAnswersTemp:
                             totalSingle += 1
                             if i.isCorrect == True:
@@ -41,7 +41,7 @@ def results(request):
                         if y.user ==  request.user:
                             score = 0
                             total = 0
-                            answerTemp = y.answer.all()
+                            answerTemp = y.answers.all()
                             for y in answerTemp:
                                 total += 1
                                 if y.isCorrect == True:
@@ -81,7 +81,7 @@ def professorResults(request):
 
             for y in tempFinishedAssignment:
                 if y.assignment.assignmentName == x.assignmentName:
-                    allAnswersTemp = y.answer.all()
+                    allAnswersTemp = y.answers.all()
                     for i in allAnswersTemp:
                         totalSingle =+ 1
                         if i.isCorrect == True:

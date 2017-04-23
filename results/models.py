@@ -7,13 +7,13 @@ from django.db import models
 class FinishedAssignment(models.Model):
     user = models.ForeignKey(to=User, related_name="results", blank=True, null=True)
     assignment = models.ForeignKey(assignments.models.Assignment, related_name='assignment')
-    answer = models.ManyToManyField(assignments.models.Answer, related_name='answersToAssignment')
+    answers = models.ManyToManyField(assignments.models.Answer, related_name='answersToAssignment')
 
     @property
     def score(self):
         score = 0
         total = 0
-        for answer in self.answer.all():
+        for answer in self.answers.all():
             total += 1
             if answer.isCorrect:
                 score += 1
