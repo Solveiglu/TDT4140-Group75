@@ -7,7 +7,7 @@ from django.db import models
 class FinishedAssignment(models.Model):
     user = models.ForeignKey(to=User, related_name="results", blank=True, null=True)
     assignment = models.ForeignKey(assignments.models.Assignment, related_name='assignment')
-    s = models.ManyToManyField(assignments.models.Answer, related_name='answersToAssignment')
+    answers = models.ManyToManyField(assignments.models.Answer, related_name='answersToAssignment')
 
     @property
     def score(self):
