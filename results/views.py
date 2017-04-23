@@ -18,7 +18,7 @@ def results(request):
     else:
         tempFinishedAssignment = FinishedAssignment.objects.all()
         tempAssignment = Assignment.objects.all()
-        data = ['Øving','Mitt resultat' 'Gruppens Resultat']
+        data = ['Øving','Mitt resultat', 'Gruppens Resultat']
         # Sorts by assignment. Finds all answered assignments. Tallies scores and adds to graph
         if request.user.groups.filter(name="Students").exists():
             for x in tempAssignment:

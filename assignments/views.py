@@ -5,7 +5,7 @@ from django.forms import *
 from django.forms import ModelForm, Textarea, modelformset_factory
 from django.forms import ValidationError
 from django.shortcuts import get_object_or_404, render, redirect
-
+from results.models import *
 from .models import Answer, Question, Assignment, Subject
 
 def listQuestions(request):
@@ -214,6 +214,11 @@ def viewAssignment(request, assignmentId):
     assignment = Assignment.objects.get(id=assignmentId)
 
     if request.method == 'POST':
+        results = FinishedAssignment.objects.create(
+            user=request.user,
+            assignment=Assignment.objects.get(id=assignmentId),
+
+        )
         for key, answer_id in request.POST.items():
             if key.startswith('answer-'):
                 question_id = int(key.replace('answer-', ''))
@@ -223,6 +228,9 @@ def viewAssignment(request, assignmentId):
                 answer = Answer.objects.get(id=answer_id)
                 if answer not in question.answers.all():
                     raise ValidationError('Question and answer do not match')
+                else:
+                    results.answer.add(answer)
+                results.save()
         return redirect('results')
     return render(request, 'assignments/assignment.html', {
         'assignment': assignment
