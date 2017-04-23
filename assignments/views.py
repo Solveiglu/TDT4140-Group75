@@ -229,13 +229,14 @@ def createPrivateAssignment(request):
 
 def viewAssignment(request, assignmentId):
     assignment = Assignment.objects.get(id=assignmentId)
-
+    error = ''
     if request.method == 'POST':
         results = FinishedAssignment.objects.create(
             user=request.user,
             assignment=assignment
 
         )
+        answers = []
         for key, answer_id in request.POST.items():
             if key.startswith('answer-'):
                 question_id = int(key.replace('answer-', ''))
@@ -245,12 +246,18 @@ def viewAssignment(request, assignmentId):
                 answer = Answer.objects.get(id=answer_id)
                 if answer not in question.answers.all():
                     raise ValidationError('Question and answer do not match')
-                else:
-                    results.answers.add(answer)
-                results.save()
-        return redirect('results')
+                answers.append(answer)
+
+        if len(answers) != assignment.questions.count():
+            results.delete()
+            error = "Du må svare på alle spørsmålene"
+        else:
+            results.answers.add(*answers)
+            return redirect('results')
+
     return render(request, 'assignments/assignment.html', {
-        'assignment': assignment
+        'assignment': assignment,
+        'error': error
     })
 
 
