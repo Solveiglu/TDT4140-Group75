@@ -229,7 +229,7 @@ def viewAssignment(request, assignmentId):
                 if answer not in question.answers.all():
                     raise ValidationError('Question and answer do not match')
                 else:
-                    results.answer.add(answer)
+                    results.answers.add(answer)
                 results.save()
         return redirect('results')
     return render(request, 'assignments/assignment.html', {
