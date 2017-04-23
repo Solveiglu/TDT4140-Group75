@@ -13,7 +13,7 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-12 col-md-offset-1 col-md-10">
-                <h1>Create a new assignment</h1>
+                <h1>Opprett ny øving</h1>
                 <form method="GET" action="{% url 'new-assignment' %}">
                     <select name="subject" onchange="this.form.submit()">
                         <option value="0">Choose subject</option>
@@ -34,7 +34,7 @@
                     {{ assignment_form.non_field_errors }}
                     {{ assignment_form.as_p }}
                     <center>
-                        <button class="btn btn-primary" type="submit">Submit</button>
+                        <button class="btn btn-primary btn-lg" type="submit">Legg til</button>
                     </center>
                 </form>
             {% endif %}
