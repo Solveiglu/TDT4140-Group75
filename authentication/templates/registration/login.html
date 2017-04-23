@@ -5,17 +5,26 @@
 {% endblock %}
 
 {% block header %}
-    {% include "components/header.html" %}
+{% load static %}
+<div id="headerBox" class="container-fluid">
+    <div class="row">
+        <div id="logoContainer" class="col-xs-offset-0 col-xs-9 col-sm-offset-1 col-sm-7 col-md-offset-1 col-md-5">
+            <a href="{% url 'index' %}"><img id="logo" src="{% static "img/logo.png" %}" alt="home"></a>
+        </div>
+    </div>
+</div>
 {% endblock %}
 
 {% block content %}
         <div id='loginForm' class="col-sm-offset-2 col-sm-6 col-md-4 col-md-offset-4 ">
             {% if form.errors %}
-                <p>Your username and password didn't match. Please try again.</p>
+                <p>Ditt brukernavn og passord henger ikke sammen. Prøv igjen.</p>
             {% endif %}
             <div class="login-panel panel panel-default">
                 <div class="panel-heading">
-                    <h3 class="panel-title">Please Sign In</h3>
+                    <center>
+                        <h3 class="panel-title">Venligst logg inn</h3>
+                    </center>
                 </div>
                 <div class="panel-body">
                     <form method="post" action="{% url 'login' %}">
@@ -34,7 +43,7 @@
                         </p>
                         <p class="bs-component">
                         <center>
-                        <input class="btn btn-primary btn-md" type="submit" value="login" />
+                            <button class="btn btn-primary btn-md" type="submit" value="login">Logg inn</button>
                         </center>
                         <input type="hidden" name="next" value="{{ next }}" />
                     </form>

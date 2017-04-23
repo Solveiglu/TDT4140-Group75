@@ -5,6 +5,11 @@ from django.forms import *
 from django.forms import ModelForm, Textarea, modelformset_factory
 from django.forms import ValidationError
 from django.shortcuts import get_object_or_404, render, redirect
+from django.utils.translation import ugettext_lazy as _
+from django.urls import reverse
+from django.views.generic import CreateView
+from django.http import HttpResponseForbidden, HttpResponseRedirect
+from agnitio import urls
 
 from .models import Answer, Question, Assignment, Subject
 
@@ -46,6 +51,10 @@ class QuestionForm(ModelForm):
     class Meta:
         model = Question
         fields = ['questionText', 'subject']
+        labels = {
+            'questionText': _('Spørsmål'),
+            'subject': _('Emne')
+        }
         widgets = {
             'questionText': Textarea(attrs={'cols': 60, 'rows': 4})
         }
@@ -54,6 +63,10 @@ class AnswerForm(ModelForm):
     class Meta:
         model = Answer
         fields = ['answerText', 'isCorrect']
+        labels = {
+            'answerText': _('Svar'),
+            'isCorrect': _('Riktig')
+        }
         widgets = {
             'answerText': Textarea(attrs={'cols': 60, 'rows': 4})
         }
@@ -155,8 +168,15 @@ class AssignmentForm(ModelForm):
     class Meta:
         model = Assignment
         fields = ['assignmentName', 'description', 'deadline', 'questions']
+        labels = {
+            'assignmentName': _('Navn'),
+            'description': _('Beskrivelse'),
+            'deadline': _('Leveringsfrist'),
+            'questions': _('Spørsmål')
+        }
         widgets = {
-            'questions': CheckboxSelectMultiple()
+            'questions': CheckboxSelectMultiple(),
+            'description': Textarea(attrs={'cols': 60, 'rows': 4})
         }
 
 
@@ -181,9 +201,9 @@ def createAssignment(request):
     })
 
 class PrivateAssignmentForm(Form):
-    assignment_name = CharField()
-    number_of_questions = IntegerField()
-    subject = ModelChoiceField(queryset=Subject.objects.all())
+    assignment_name = CharField(label='Navn')
+    number_of_questions = IntegerField(label='Antall spørsmål')
+    subject = ModelChoiceField(queryset=Subject.objects.all(), label='Emne')
 
 @login_required
 def createPrivateAssignment(request):

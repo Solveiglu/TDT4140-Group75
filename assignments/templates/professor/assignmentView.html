@@ -1,7 +1,7 @@
 {% extends "home.html" %}
 
 {% block styles %}
-
+    <link rel="stylesheet" type="text/css" href="/static/css/form.css">
 {% endblock %}
 
 {% block header %}
@@ -9,14 +9,14 @@
 {% endblock %}
 
 
-{% load static %}
-<link rel="stylesheet" href="{% static "css/main.css" %}" type="text/css"/>
+
+
 
 {% block content %}
     <div class="col-md-offset-1 col-sm-12 col-md-10">
         <div class="row">
             <a class="btn" href="/">
-                <button type="button" class="btn btn-success btn-lg" >Tilbake</button></a>
+                <button type="button" class="btn btn-default btn-lg" >Tilbake</button></a>
         </div>
         <div class="row">
             <div class="col-md-5">
@@ -24,7 +24,13 @@
                 <h5>
                     <b>Beskrivelse: </b>{{ assignment.description }}
                  </h5>
-                 <p>{{ assignment.questions.first.subject }} – {{ assignment.questions.count }} questions</p>
+                 <p>{{ assignment.questions.first.subject }} - {{ assignment.questions.count }} spørsmål</p>
+            </div>
+            <div id="editBtn" class="col-md-5">
+                <center>
+                    <a class="btn" href="../{{ assignment.id }}/edit">
+                    <button type="button" class="btn btn-info btn-lg" >Rediger</button></a>
+                </center>
             </div>
         </div>
 
