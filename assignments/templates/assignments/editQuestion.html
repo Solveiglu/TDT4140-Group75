@@ -13,7 +13,7 @@
         <h1>Edit question</h1>
         <form method="POST" onsubmit="return confirm('Er du sikker på at du vil slette spørsmålet?');" action="{% url 'delete-question' question_id %}">
             {% csrf_token %}
-            <button type="submit">Delete question</button>
+            <button class="btn btn-default" type="submit">Slett spørsmål</button>
         </form>
         <br/>
         <hr/>
@@ -25,7 +25,9 @@
             <table>
                 {{ answer_formset }}
             </table>
-            <button class="btn" type="submit">Submit</button>
+            <center>
+                <button class="btn btn-primary btn-lg" type="submit">Legg til</button>
+            </center>
         </form>
     </div>
 {% endblock %}

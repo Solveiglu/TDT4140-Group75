@@ -1,7 +1,7 @@
 {% extends "home.html" %}
 
 {% block styles %}
-    <link rel="stylesheet" type="text/css" href="static/css/form.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/form.css">
 {% endblock %}
 
 {% block header %}
@@ -15,7 +15,7 @@
 {% block content %}
     <div class="col-sm-offset-1 ">
         <h2>{{ assignment.assignmentName }}</h2>
-        <p>{{ assignment.questions.first.subject }} - {{ assignment.questions.count }} questions</p>
+        <p>{{ assignment.questions.first.subject }} - {{ assignment.questions.count }} spørsmål</p>
         <hr/>
         <form method="POST" onsubmit="return confirm('Er du sikker på at du vil sende inn svarene?');" action="{% url 'assignment' assignment.id %}">
             {% csrf_token %}
@@ -27,7 +27,9 @@
                 {% endfor %}
                 <hr/>
             {% endfor %}
-            <input type="submit" value="Submit" />
+            <center>
+            <button class="btn btn-primary btn-lg" type="submit">Svar</button>
+            </center>
         </form>
     </div>
 {% endblock %}
