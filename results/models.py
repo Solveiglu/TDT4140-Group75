@@ -15,7 +15,7 @@ class FinishedAssignment(models.Model):
         total = 0
         for answer in self.answers.all():
             total += 1
-            if answers.isCorrect:
+            if answer.isCorrect:
                 score += 1
         return (score/total)*100
 
