@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from results.models import QuestionResult, FinishedAssignment
+from results.models import FinishedAssignment
 from django.contrib.auth.models import User
 from django.contrib.auth.models import Group, Permission
 from django.shortcuts import render, redirect
@@ -9,31 +9,103 @@ from django.shortcuts import render
 from graphos.renderers.yui import LineChart, BarChart, ColumnChart
 
 def results(request):
+
     temp = FinishedAssignment.objects.all()
-    userResults = []
     data = ['Øving', 'Ditt Resultat', 'Klassens Resultat']
+    scoreList = []
     if request.user.groups.filter(name="Professors").exists():
-        return render(request, 'professorResults.html', )
+        return redirect('professorResults')
     else:
-        for x in temp:
-                if temp.assignment.user == request.user:
-                    userResults.append(userResults[x])
-        for x in userResults:
-            data.append[[userResults.Assignment], userResults.Answers]
-            data = ['Øving', 'Ditt Resultat', 'Klassens Resultat']
-        data_source = SimpleDataSource(data=data)
-        chart = LineChart(data_source)
-        chart2 = BarChart(data_source)
-        return render(request, 'results.html', {
-            'results': userResults,
+        tempFinishedAssignment = FinishedAssignment.objects.all()
+        tempAssignment = Assignment.objects.all()
+        data = ['Øving','Mitt resultat', 'Gruppens Resultat']
+        # Sorts by assignment. Finds all answered assignments. Tallies scores and adds to graph
+        if request.user.groups.filter(name="Students").exists():
+            for x in tempAssignment:
+                scoreSingle = 0
+                totalSingle = 0
+                scoreTotal = 0
+                totalTotal = 0
+                answerScore = 0
+
+
+                for y in tempFinishedAssignment:
+                    if y.assignment.assignmentName == x.assignmentName:
+                        allAnswersTemp = y.answers.all()
+                        for i in allAnswersTemp:
+                            totalSingle += 1
+                            if i.isCorrect == True:
+                                scoreSingle += 1
+                        scoreTotal += scoreSingle
+                        totalTotal += totalSingle
+                        if y.user ==  request.user:
+                            score = 0
+                            total = 0
+                            answerTemp = y.answers.all()
+                            for y in answerTemp:
+                                total += 1
+                                if y.isCorrect == True:
+                                    score += 1
+                            answerScore = (score / total) * 100
+                if totalTotal > 0:
+                    combinedScore = (scoreTotal / totalTotal) * 100
+                    data.append([x.assignmentName, answerScore, combinedScore])
+                    scoreList.append(answerScore)
+            studentScore = SimpleDataSource(data=data)
+            chart = LineChart(studentScore)
+            chart2 = BarChart(studentScore)
+            return render(request, 'results.html', {
+                'scoreList': scoreList,
+                'results': temp,
+                'chart': chart,
+                'chart2': chart2,
+            })
+
+
+
+
+def professorResults(request):
+
+    tempFinishedAssignment = FinishedAssignment.objects.all()
+    tempAssignment = Assignment.objects.all()
+    scoreList = []
+    data = ['Øving', 'Gruppens Resultat']
+    #Sorts by assignment. Finds all answered assignments. Tallies scores and adds to graph
+    if request.user.groups.filter(name="Professor").exists():
+        for x in tempAssignment:
+            scoreSingle = 0
+            totalSingle = 0
+            scoreTotal = 0
+            totalTotal = 0
+
+
+            for y in tempFinishedAssignment:
+                if y.assignment.assignmentName == x.assignmentName:
+                    allAnswersTemp = y.answers.all()
+                    for i in allAnswersTemp:
+                        totalSingle =+ 1
+                        if i.isCorrect == True:
+                            scoreSingle =+ 1
+                    scoreTotal =+ scoreSingle
+                    totalTotal =+ totalSingle
+
+            if totalTotal > 0:
+                combinedScore = (scoreTotal/totalTotal)*100
+                data.append([x.assignmentName,combinedScore ])
+                scoreList.append(combinedScore)
+        studentScore = SimpleDataSource(data=data)
+        chart = LineChart(studentScore)
+        chart2 = BarChart(studentScore)
+        return render(request, 'professorResults.html', {
+            'results': tempAssignment,
+            'score': scoreList,
             'chart': chart,
             'chart2': chart2,
         })
 
-def listResults(request):
-    results = QuestionResult.objects.all()
-    user = request.user
-    return render(request, 'resultlist.html', {
-        'questionResult': results,
-    })
+    if request.user.groups.filter(name="Students").exists():
+        return redirect('results')
+    else:
+        return redirect('frontpage/profile')
+
 

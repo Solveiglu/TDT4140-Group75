@@ -5,12 +5,8 @@ from django.forms import *
 from django.forms import ModelForm, Textarea, modelformset_factory
 from django.forms import ValidationError
 from django.shortcuts import get_object_or_404, render, redirect
+from results.models import *
 from django.utils.translation import ugettext_lazy as _
-from django.urls import reverse
-from django.views.generic import CreateView
-from django.http import HttpResponseForbidden, HttpResponseRedirect
-from agnitio import urls
-
 from .models import Answer, Question, Assignment, Subject
 
 def listQuestions(request):
@@ -167,6 +163,9 @@ def deleteQuestion(request, questionId):
 class AssignmentForm(ModelForm):
     class Meta:
         model = Assignment
+<<<<<<< HEAD
+        fields = ['assignmentName', 'description', 'deadline', 'questions', 'passingGrade']
+=======
         fields = ['assignmentName', 'description', 'deadline', 'questions']
         labels = {
             'assignmentName': _('Navn'),
@@ -174,6 +173,7 @@ class AssignmentForm(ModelForm):
             'deadline': _('Leveringsfrist'),
             'questions': _('Spørsmål')
         }
+>>>>>>> master
         widgets = {
             'questions': CheckboxSelectMultiple(),
             'description': Textarea(attrs={'cols': 60, 'rows': 4})
@@ -234,6 +234,11 @@ def viewAssignment(request, assignmentId):
     assignment = Assignment.objects.get(id=assignmentId)
 
     if request.method == 'POST':
+        results = FinishedAssignment.objects.create(
+            user=request.user,
+            assignment=assignment
+
+        )
         for key, answer_id in request.POST.items():
             if key.startswith('answer-'):
                 question_id = int(key.replace('answer-', ''))
@@ -243,6 +248,9 @@ def viewAssignment(request, assignmentId):
                 answer = Answer.objects.get(id=answer_id)
                 if answer not in question.answers.all():
                     raise ValidationError('Question and answer do not match')
+                else:
+                    results.answers.add(answer)
+                results.save()
         return redirect('results')
     return render(request, 'assignments/assignment.html', {
         'assignment': assignment

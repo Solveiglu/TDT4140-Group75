@@ -7,24 +7,27 @@
             <div class="panel-heading" data-toggle="collapse" data-target="#{{ currentAssignment.id }}demo" aria-expanded="false" aria-controls="demo">
                 <div class="row">
                     <div class="col-sm-12 col-md-6">
-                        <h2>{{ currentAssignment.assignmentName }}</h2>
-                        <h3>Tema:</h3>
-                        <h5>{{ currentAssignment.questions.first.subject }}</h5>
+                        <h2>{{ currentAssignment }}</h2>
+                        <h3>Prosent riktig:</h3>
+                        <h5>{{ currentResults }}</h5>
+
                     </div>
                     <div class="col-md-6">
-                        {% if not assignment.user%}
-                        <h2>Frist:</h2>
-                        <h5>{%if currentAssignment.deadline%}{{ currentAssignment.deadline }} {%endif%}</h5> {%endif%}
+                        <h2> {%if currentAssignment.passed%} Godkjent {%else%} Ikke godkjent {%endif%}</h2>
+
+
+
+                        <h5> {{ currentAssignment.assignment.question }}</h5>
                     </div>
                 </div>
             </div>
             <div id="{{ currentAssignment.id }}demo" class="panel-body collapse">
                 <div class="col-sm-12 col-md-12">
-                    <h5>{{ currentAssignment.description }}</h5>
+                    <h5> {% for question in currentAssignment.assignment.questions.all%} <li>{{ question }} </li> {%endfor%}</h5>
                 </div>
                 <div class="text-center">
-                    <a class="btn" href="assignments/{{ currentAssignment.id }}">
-                    <button type="button" class="btn btn-default btn-lg" >Ta test</button></a>
+
+
                 </div>
             </div>
         </div>

@@ -34,8 +34,8 @@ class Assignment(models.Model):
     deadline = models.DateTimeField(null=True, default=timezone.now)
     questions = models.ManyToManyField(Question)
     description = models.TextField(null=False)
-    #passingGrade = models.DateTimeField(null=True)
     owner = models.ForeignKey(User, related_name='assignments', null=True) #owner=None --> alle har tilgang
+    passingGrade = models.PositiveIntegerField(null=True, default=0)
 
     def __str__(self):
         return self.assignmentName
