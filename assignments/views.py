@@ -154,7 +154,7 @@ def deleteQuestion(request, questionId):
 class AssignmentForm(ModelForm):
     class Meta:
         model = Assignment
-        fields = ['assignmentName', 'description', 'deadline', 'questions']
+        fields = ['assignmentName', 'description', 'deadline', 'questions', 'passingGrade']
         widgets = {
             'questions': CheckboxSelectMultiple()
         }
@@ -216,7 +216,7 @@ def viewAssignment(request, assignmentId):
     if request.method == 'POST':
         results = FinishedAssignment.objects.create(
             user=request.user,
-            assignment=Assignment.objects.get(id=assignmentId),
+            assignment=assignment
 
         )
         for key, answer_id in request.POST.items():
