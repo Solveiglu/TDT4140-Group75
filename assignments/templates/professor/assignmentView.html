@@ -22,30 +22,32 @@
             <div class="col-md-5">
                 <h2>{{ assignment.assignmentName }}</h2>
                 <h5>
-                    {{ assignment.description }}
+                    <b>Beskrivelse: </b>{{ assignment.description }}
                  </h5>
-                 <p>{{ assignment.questions.first.subject }} - {{ assignment.questions.count }} questions</p>
-            </div>
-            <div class="col-md-5">
-                <div class="text-center">
-                    <a class="btn" href="../{{ assignment.id }}/edit">
-                    <button type="button" class="btn btn-info btn-lg" >Rediger</button></a>
-                </div>
+                 <p>{{ assignment.questions.first.subject }} – {{ assignment.questions.count }} questions</p>
             </div>
         </div>
 
         <hr/>
-        <form method="POST" onsubmit="return confirm('Er du sikker på at du vil sende inn svarene?');" action="{% url 'assignment' assignment.id %}">
-            {% csrf_token %}
-            {% for question in assignment.questions.all %}
-                <h4>{{ question.questionText }} </h4>
-                <div class="text-center">
-                    <a class="btn" href="../../questions/{{ question.id }}/edit">
-                    <button type="button" class="btn btn-link btn-sm" >Rediger</button></a>
-                </div>
-                <hr/>
+        {% for question in assignment.questions.all %}
+            <h5>{{ question.questionText }} </h5>
+            <ol>
+            {% for answer in question.answers.all %}
+                {% if answer.isCorrect is True %}
+                    <li> {{ answer.answerText }} [Korrekt svar] </li>
+                {% else %}
+                    <li> {{ answer.answerText }} </li>
+                {% endif %}
             {% endfor %}
-        </form>
+            </ol>
+            <hr/>
+        {% endfor %}
+        <div class="col-md-1">
+            <div class="text-center">
+                <a class="btn" href="../{{ assignment.id }}/edit">
+                <button type="button" class="btn btn-info btn-lg" >Rediger</button></a>
+            </div>
+        </div>
     </div>
 {% endblock %}
 
