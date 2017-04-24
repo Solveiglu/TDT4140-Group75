@@ -60,6 +60,7 @@ def results(request):
                 'chart': chart,
                 'chart2': chart2,
             })
+        return redirect('index')
 
 
 

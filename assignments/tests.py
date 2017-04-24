@@ -267,13 +267,15 @@ class QuestionTestCase(TestCase):
         )
 
     def test_createAssignment(self):
+        self.client.force_login(User.objects.first())
         # lage assignment
         url = reverse('new-assignment')
         response = self.client.post(url, {
             'assignment-assignmentName': 'OvingTest',
             'assignment-description': 'Kul test',
             'assignment-deadline': '2017-05-21 23:59:00',
-            'assignment-questions': [1, 2]
+            'assignment-questions': [1, 2],
+            'assignment-passingGrade': 50
         }, follow=True)
         self.assertEqual(response.status_code, 200)
         assignment = response.context['assignment']
@@ -313,6 +315,7 @@ class QuestionTestCase(TestCase):
         self.assertEqual(assignment.questions.count(), correct_number_of_questions)
 
     def test_answerAssignment(self):
+        self.client.force_login(User.objects.first())
         assignment = Assignment.objects.first()
         questions = assignment.questions.all()
         post_body = {}
@@ -325,6 +328,7 @@ class QuestionTestCase(TestCase):
         self.assertRedirects(response, reverse('results'))
 
     def test_answerAssignment_with_invalid_question(self):
+        self.client.force_login(User.objects.first())
         assignment = Assignment.objects.first()
         question = Question.objects.exclude(assignment=assignment).first()
         correct_answer = question.answers.filter(isCorrect=True).first()
@@ -336,6 +340,7 @@ class QuestionTestCase(TestCase):
             })
 
     def test_answerAssignment_with_invalid_answer_for_question(self):
+        self.client.force_login(User.objects.first())
         assignment = Assignment.objects.first()
         question = assignment.questions.first()
         invalid_answer = Answer.objects.exclude(question=question).first()
@@ -367,7 +372,8 @@ class QuestionTestCase(TestCase):
             'assignmentName': 'Heisann',
             'description': 'Kul test',
             'deadline': '2017-05-21 23:59:00',
-            'questions': [1, 2, 5]
+            'questions': [1, 2, 5],
+            'passingGrade': 50
         }, follow=True)
         self.assertEqual(response.status_code, 200)
         assignment = response.context['assignment']

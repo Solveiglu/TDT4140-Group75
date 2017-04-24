@@ -1,9 +1,17 @@
 [
+   {
+    "model": "auth.Group",
+    "pk": 1,
+    "fields": {
+      "name": "Students"
+    }
+  },
   {
     "model": "auth.User",
     "pk": 1,
     "fields": {
-      "username": "test"
+      "username": "test",
+      "groups": [1]
     }
   }
 ]
