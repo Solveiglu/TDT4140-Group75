@@ -1,5 +1,5 @@
 from django.test import TestCase
-from Assignments.models import *
+from assignments.models import *
 from results.models import *
 from django.contrib.auth.models import User
 
