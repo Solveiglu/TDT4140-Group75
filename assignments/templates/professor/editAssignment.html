@@ -18,8 +18,9 @@
                 <h1>Rediger øving</h1>
             </div>
             <div id="delete" class="col-md-3">
-                <form action="{% url 'delete-assignment' assignment_id %}">
-                <input class="btn btn-danger btn-lg" type="submit" value="Slett" />
+                <form method="POST" onsubmit="return confirm('Er du sikker på at du vil slette øvingen?');"action="{% url 'delete-assignment' assignment_id %}">
+                    {% csrf_token %}
+                    <input class="btn btn-danger btn-lg" type="submit" value="Slett" />
                 </form>
             </div>
         </div>
