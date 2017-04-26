@@ -8,12 +8,12 @@
                 <div class="row">
                     <div class="col-sm-12 col-md-6">
                         <h2>{{ currentAssignment }}</h2>
-                        <h3>Deadline</h3>
+                        <h3>Frist:</h3>
                         <h5>{{ currentAssignment.deadline }}</h5>
 
                     </div>
                     <div class="col-md-6">
-
+                           {%if currentAssignment.passed%} Godkjent {%else%} Ikke godkjent {%endif%}
 
 
                         <h5> {{ currentAssignment.assignment.question }}</h5>
