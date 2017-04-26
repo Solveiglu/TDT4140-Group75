@@ -1,0 +1,46 @@
+html {
+background: url(https://image.freepik.com/free-vector/abstract-blue-background_1048-1511.jpg) no-repeat center center fixed;
+-webkit-background-size: cover;
+-moz-background-size: cover;
+-o-background-size: cover;
+background-size: cover;
+}
+
+#form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10%;
+}
+
+#loginForm {
+    margin-top: 10%;
+}
+
+
+.container-fluid {
+}
+#headerBox {
+    background-color: rgb(32,32,32);
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+#headerBox img  {
+    width: 100%;
+    height: auto;
+}
+#logoContainer {
+
+}
+
+#logo {
+    min-width: 100%;
+}
+
+#profileContainer {
+    text-align: right;
+}
+
+#profile {
+    max-width: 100px;
+}
