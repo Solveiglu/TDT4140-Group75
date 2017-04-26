@@ -47,7 +47,7 @@ def results(request):
                                 if y.isCorrect == True:
                                     score += 1
                             if totalTotal > 0:
-                            answerScore = (score / total) * 100
+                                answerScore = (score / total) * 100
                 if totalTotal > 0:
                     combinedScore = (scoreTotal / totalTotal) * 100
                     data.append([x.assignmentName, answerScore, combinedScore])
