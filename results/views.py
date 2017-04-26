@@ -41,7 +41,7 @@ def results(request):
                         scoreTotal += scoreSingle
                         totalTotal += totalSingle
                         if finishedAssignmennt.user ==  request.user:
-                            yourAssignmentsList.append(assignment)
+                            yourAssignmentsList.append(finishedAssignmennt)
                             score = 0
                             total = 0
                             answerTemp = finishedAssignmennt.answers.all()
