@@ -5,7 +5,6 @@
 {% block header %}
     {% include 'components/header.html' %}
 {% endblock %}
-
 {% block content %}
 {{ chart.as_html }}
     {% for assignment in results %}
