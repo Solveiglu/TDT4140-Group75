@@ -7,10 +7,6 @@ from django.forms import ValidationError
 from django.shortcuts import get_object_or_404, render, redirect
 from results.models import *
 from django.utils.translation import ugettext_lazy as _
-from django.urls import reverse
-from django.views.generic import CreateView
-from django.http import HttpResponseForbidden, HttpResponseRedirect
-from agnitio import urls
 
 from .models import Answer, Question, Assignment, Subject
 
@@ -84,7 +80,6 @@ class BaseAnswerFormSet(BaseModelFormSet):
     def clean(self):
         super(BaseAnswerFormSet, self).clean()
         if any(self.errors):
-            # Don't bother validating the formset unless each form is valid on its own
             return
         answers = []
         correctAnswerExists = False
@@ -143,8 +138,6 @@ def editQuestion(request, questionId):
                     answer.question = question
                     answer.save()
             return redirect('show-question', question.id)
-        else:
-            print("a form is invalid")
     else:
         question_form = QuestionForm(prefix='question', instance=question)
         answer_formset = AnswerFormSet(prefix='answers', queryset=Answer.objects.filter(question_id=question.id))
@@ -239,7 +232,6 @@ def viewAssignment(request, assignmentId):
         results = FinishedAssignment.objects.create(
             user=request.user,
             assignment=assignment
-
         )
         answers = []
         for key, answer_id in request.POST.items():

@@ -13,7 +13,6 @@ class Subject(models.Model):
         return self.subjectName
 
 class Question(models.Model):
-    # Bruker TextField i stedet for CharField pga. ingen lengdebegrensning
     questionText = models.TextField(null=False)
 
     subject = models.ForeignKey(Subject, related_name='questions')
@@ -34,7 +33,8 @@ class Assignment(models.Model):
     deadline = models.DateTimeField(null=True, default=timezone.now)
     questions = models.ManyToManyField(Question)
     description = models.TextField(null=False)
-    owner = models.ForeignKey(User, related_name='assignments', null=True) #owner=None --> alle har tilgang
+    # owner = None means that every user can access the assignment
+    owner = models.ForeignKey(User, related_name='assignments', null=True)
     passingGrade = models.PositiveIntegerField(null=True, default=0)
 
     def __str__(self):
@@ -43,8 +43,6 @@ class Assignment(models.Model):
 class Answer(models.Model):
     answerText = models.TextField(null=False, blank=True)
     isCorrect = models.BooleanField(null=False)
-
-    # fremmednøkkel som peker på Question
     question = models.ForeignKey(Question, related_name='answers')
 
     def __str__(self):

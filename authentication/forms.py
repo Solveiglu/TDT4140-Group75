@@ -1,3 +1,4 @@
+from django.forms import forms
 
 
 class UserForm(forms.ModelForm):

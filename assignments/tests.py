@@ -1,15 +1,11 @@
-import datetime
-
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.test import TestCase
 from django.core.urlresolvers import resolve
 from django.urls import reverse
-from django.utils import timezone
 
 from assignments.models import Question, Answer, Subject, Assignment
-from assignments.views import listQuestions, showQuestion
-# Create your tests here.
+from assignments.views import listQuestions
 
 class QuestionTestCase(TestCase):
 
@@ -52,7 +48,6 @@ class QuestionTestCase(TestCase):
         self.assertEqual(response.context['error_message'], "You didn't select an answer.")
 
     def test_valid_newQuestion(self):
-        # vanlig innsending av newQuestion
         url = reverse('new-question')
         response = self.client.post(url, {
             'question-questionText': 'hello',
@@ -78,7 +73,6 @@ class QuestionTestCase(TestCase):
         )
 
     def test_newQuestion_with_no_correct_answer(self):
-        # ingen korrekte svar
         url = reverse('new-question')
         response = self.client.post(url, {
             'question-questionText': 'hello',
@@ -95,7 +89,6 @@ class QuestionTestCase(TestCase):
         self.assertIn('Et av svaralternativene må være korrekt.', response.context['answer_formset'].non_form_errors())
 
     def test_newQuestion_with_empty_answer(self):
-        # korrekt svar uten svarinnhold
         url = reverse('new-question')
         response = self.client.post(url, {
             'question-questionText': 'hello',
@@ -112,7 +105,6 @@ class QuestionTestCase(TestCase):
         self.assertIn('Svaralternativet har ikke noe innhold.', str(response.context['answer_formset'][0].errors))
 
     def test_newQuestion_with_duplicate_answers(self):
-        # duplikate svar
         url = reverse('new-question')
         response = self.client.post(url, {
             'question-questionText': 'hello',
@@ -249,7 +241,7 @@ class QuestionTestCase(TestCase):
                 Answer.objects.get(pk=answer.id)
 
     def test_createAssignment_subjects(self):
-        # henter ut riktige spørsmål når man velger subject
+        # Testing: retrieving the correct question when choosing a subject
         url = reverse('new-assignment')
         response = self.client.get(url)
         self.assertListEqual(
@@ -267,7 +259,6 @@ class QuestionTestCase(TestCase):
 
     def test_createAssignment(self):
         self.client.force_login(User.objects.first())
-        # lage assignment
         url = reverse('new-assignment')
         response = self.client.post(url, {
             'assignment-assignmentName': 'OvingTest',
@@ -282,7 +273,6 @@ class QuestionTestCase(TestCase):
         self.assertEqual(assignment.description, 'Kul test')
 
     def test_createPrivateAssignment_questions_more_than_max(self):
-        # generere en assignment
         self.client.force_login(User.objects.first())
         url = reverse('new-private-assignment')
         response = self.client.post(url, {
@@ -300,7 +290,6 @@ class QuestionTestCase(TestCase):
         self.assertEqual(assignment.questions.count(), correct_number_of_questions)
 
     def test_createPrivateAssignment_questions_less_than_max(self):
-        # generere en assignment
         self.client.force_login(User.objects.first())
         url = reverse('new-private-assignment')
         response = self.client.post(url, {

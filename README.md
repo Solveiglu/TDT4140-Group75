@@ -38,11 +38,11 @@ open http://localhost:8080
 ## Workflow
 ```
 
-# Push to new bransh
+# Push to new branch
 
 git pull origin master
 git checkout -b <branch-name>
-git add -A (or spesific files)
+git add -A (or specific files)
 git status (check that all files are staged)
 git commit -m "message"
 git push origin <branch-name>
