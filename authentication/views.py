@@ -25,7 +25,7 @@ def signup(request):
 #            lastName = form.cleaned_data.get('lastname')
 #            bio = form.cleaned_data.get('bio')
             user = authenticate(username=username, password=rawPassword)
-            g = Group.objects.get_or_create(name='Students')
+            g = Group.objects.get(name='Students')
             user.groups.add(g)
             django_login(request, user)
             return redirect('/')
