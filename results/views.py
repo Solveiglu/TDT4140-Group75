@@ -72,13 +72,12 @@ def professorResults(request):
     scoreList = []
     data = ['Øving', 'Gruppens Resultat']
     #Sorts by assignment. Finds all answered assignments. Tallies scores and adds to graph
-    if request.user.groups.filter(name="Professor").exists():
+    if request.user.groups.filter(name="Professors").exists():
         for x in tempAssignment:
             scoreSingle = 0
             totalSingle = 0
             scoreTotal = 0
             totalTotal = 0
-
 
             for y in tempFinishedAssignment:
                 if y.assignment.assignmentName == x.assignmentName:

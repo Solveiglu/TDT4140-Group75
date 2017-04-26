@@ -235,7 +235,6 @@ class QuestionTestCase(TestCase):
         response = self.client.get(url)
         self.assertRedirects(response, reverse('edit-question', args=(question.id,)))
 
-
     def test_deleteQuestion(self):
         question = Question.objects.get(pk=1)
         answers = question.answers.all()
@@ -351,7 +350,6 @@ class QuestionTestCase(TestCase):
                 'answer-{}'.format(question.id): invalid_answer.id
             })
 
-
     def test_showAssignment(self):
         assignment = Assignment.objects.first()
         url = reverse('show-assignment', args=(assignment.id,))
@@ -384,7 +382,6 @@ class QuestionTestCase(TestCase):
             {1, 2, 5}
         )
         self.assertEqual(assignment.id, assignment_id)
-
 
     def test_deleteAssignment(self):
         self.client.force_login(User.objects.first())
