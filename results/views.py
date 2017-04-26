@@ -11,7 +11,7 @@ from graphos.renderers.yui import LineChart, BarChart, ColumnChart
 def results(request):
 
     temp = FinishedAssignment.objects.all()
-    data = ['Øving', 'Ditt Resultat', 'Klassens Resultat']
+    data = [['Øving', 'Ditt Resultat', 'Klassens Resultat']]
     scoreList = []
     if request.user.groups.filter(name="Professors").exists():
         return redirect('professorResults')
