@@ -15,7 +15,7 @@ def results(request):
     scoreList = []
     if request.user.groups.filter(name="Professors").exists():
         return redirect('professorResults')
-    else:
+    elif request.user.groups.filter(name="Students").exists():
         tempFinishedAssignment = FinishedAssignment.objects.all()
         tempAssignment = Assignment.objects.all()
         # Sorts by assignment. Finds all answered assignments. Tallies scores and adds to graph
@@ -51,16 +51,16 @@ def results(request):
                     combinedScore = (scoreTotal / totalTotal) * 100
                     data.append([x.assignmentName, answerScore, combinedScore])
                     scoreList.append(answerScore)
-            studentScore = SimpleDataSource(data=data)
-            chart = LineChart(studentScore, options={'title': "Resultater"} )
-            chart2 = BarChart(studentScore)
-            return render(request, 'results.html', {
-                'scoreList': scoreList,
-                'results': temp,
-                'chart': chart,
-                'chart2': chart2,
-            })
-        return redirect('index')
+        studentScore = SimpleDataSource(data=data)
+        chart = LineChart(studentScore, options={'title': "Resultater"} )
+        chart2 = BarChart(studentScore)
+        return render(request, 'results.html', {
+            'scoreList': scoreList,
+            'results': temp,
+            'chart': chart,
+            'chart2': chart2,
+        })
+    return redirect('index')
 
 
 
