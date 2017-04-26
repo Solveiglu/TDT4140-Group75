@@ -6,19 +6,18 @@ from django.shortcuts import render, redirect
 from assignments.models import *
 from graphos.sources.simple import SimpleDataSource
 from django.shortcuts import render
-from graphos.renderers.yui import LineChart, BarChart, ColumnChart
+from graphos.renderers.gchart import LineChart, BarChart, ColumnChart
 
 def results(request):
 
     temp = FinishedAssignment.objects.all()
-    data = ['Øving', 'Ditt Resultat', 'Klassens Resultat']
+    data = [['Øving', 'Ditt Resultat', 'Klassens Resultat']]
     scoreList = []
     if request.user.groups.filter(name="Professors").exists():
         return redirect('professorResults')
     else:
         tempFinishedAssignment = FinishedAssignment.objects.all()
         tempAssignment = Assignment.objects.all()
-        data = ['Øving','Mitt resultat', 'Gruppens Resultat']
         # Sorts by assignment. Finds all answered assignments. Tallies scores and adds to graph
         if request.user.groups.filter(name="Students").exists():
             for x in tempAssignment:
@@ -46,13 +45,14 @@ def results(request):
                                 total += 1
                                 if y.isCorrect == True:
                                     score += 1
-                            answerScore = (score / total) * 100
+                            if totalTotal > 0:
+                                answerScore = (score / total) * 100
                 if totalTotal > 0:
                     combinedScore = (scoreTotal / totalTotal) * 100
                     data.append([x.assignmentName, answerScore, combinedScore])
                     scoreList.append(answerScore)
             studentScore = SimpleDataSource(data=data)
-            chart = LineChart(studentScore)
+            chart = LineChart(studentScore, options={'title': "Resultater"} )
             chart2 = BarChart(studentScore)
             return render(request, 'results.html', {
                 'scoreList': scoreList,
@@ -81,7 +81,7 @@ def professorResults(request):
             data.append([x.assignmentName,scoreTotal ])
             scoreList.append(scoreTotal)
         studentScore = SimpleDataSource(data=data)
-        chart = LineChart(studentScore)
+        chart = LineChart(studentScore, options={'title': "Resultater"})
         return render(request, 'professorResults.html', {
             'results': tempAssignment,
             'score': scoreList,
