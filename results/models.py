@@ -20,7 +20,6 @@ class FinishedAssignment(models.Model):
 
         if score == 0:
             return 0
-
         return (score/total)*100
 
     @property
