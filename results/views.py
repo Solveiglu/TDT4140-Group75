@@ -52,10 +52,10 @@ def results(request):
                                     score += 1
                             if totalTotal > 0:
                                 answerScore = (score / total) * 100
-                            if totalTotal > 0:
-                                combinedScore = (scoreTotal / totalTotal) * 100
-                                data.append([assignment.assignmentName, answerScore, combinedScore])
-                                scoreList.append(answerScore)
+                if totalTotal > 0:
+                    combinedScore = (scoreTotal / totalTotal) * 100
+                    data.append([assignment.assignmentName, answerScore, combinedScore])
+                    scoreList.append(answerScore)
         studentScore = SimpleDataSource(data=data)
         chart = LineChart(studentScore, options={'title': "Resultater"} )
         chart2 = BarChart(studentScore)
