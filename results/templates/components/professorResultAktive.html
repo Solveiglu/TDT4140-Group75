@@ -13,7 +13,7 @@
 
                     </div>
                     <div class="col-md-6">
-
+                           {%if currentAssignment.passed%} Godkjent {%else%} Ikke godkjent {%endif%}
 
 
                         <h5> {{ currentAssignment.assignment.question }}</h5>
