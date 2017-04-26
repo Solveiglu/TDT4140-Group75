@@ -17,6 +17,10 @@ class FinishedAssignment(models.Model):
             total += 1
             if answer.isCorrect:
                 score += 1
+
+        if score == 0:
+            return 0
+
         return (score/total)*100
 
     @property

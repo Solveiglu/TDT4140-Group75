@@ -1,6 +1,5 @@
 {% extends "home.html" %}
 {% block styles %}
-
 {% endblock %}
 {% block header %}
     {% include 'components/header.html' %}
@@ -8,7 +7,7 @@
 {% block content %}
 {{ chart.as_html }}
     {% for result in results %}
-        {% include 'components/proffesorResultsAktive.html' with currentAssignment=assignment %}
+        {% include 'components/professorResultAktive.html' with currentAssignment=result %}
     {% endfor %}
 {% endblock %}
 

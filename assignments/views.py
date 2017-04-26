@@ -7,6 +7,11 @@ from django.forms import ValidationError
 from django.shortcuts import get_object_or_404, render, redirect
 from results.models import *
 from django.utils.translation import ugettext_lazy as _
+from django.urls import reverse
+from django.views.generic import CreateView
+from django.http import HttpResponseForbidden, HttpResponseRedirect
+from agnitio import urls
+
 from .models import Answer, Question, Assignment, Subject
 
 def listQuestions(request):
