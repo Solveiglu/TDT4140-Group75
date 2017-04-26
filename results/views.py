@@ -46,6 +46,7 @@ def results(request):
                                 total += 1
                                 if y.isCorrect == True:
                                     score += 1
+                            if totalTotal > 0:
                             answerScore = (score / total) * 100
                 if totalTotal > 0:
                     combinedScore = (scoreTotal / totalTotal) * 100
