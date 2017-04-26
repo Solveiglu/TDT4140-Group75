@@ -79,6 +79,7 @@ def professorResults(request):
             scoreTotal = 0
             totalTotal = 0
 
+
             for y in tempFinishedAssignment:
                 if y.assignment.assignmentName == x.assignmentName:
                     allAnswersTemp = y.answers.all()

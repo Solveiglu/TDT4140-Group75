@@ -8,6 +8,10 @@
 
 {% block content %}
 {{ chart.as_html }}
+    <hr/>
+    <h5>Den blå grafen representerer ditt beste resultat i de ulike øvingene. Den gule grafen representerer klassens
+    gjennomsnittlige resultat.</h5>
+    <hr/>
     {% for assignment in results %}
         {% include 'components/resultsAktive.html' with currentAssignment=assignment currentResults=scoreList number=forloop.counter0 %}
     {% endfor %}
